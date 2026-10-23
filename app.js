@@ -148,68 +148,319 @@ function initInteractiveHoverSounds() {
 }
 
 /* ==========================================================================
-   2. 3D CYBER THREAT GLOBE & ATTACK VECTOR CANVAS
+   2. FULL-SCREEN SCROLL-INTERACTIVE 3D THREAT GLOBE BACKGROUND ENGINE
    ========================================================================== */
 function initThreatGlobeCanvas() {
-  const canvas = document.getElementById('threat-globe-canvas');
+  const canvas = document.getElementById('bg-threat-globe-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  let width = (canvas.width = canvas.parentElement.clientWidth || 380);
-  let height = (canvas.height = 320);
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+  let dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-  window.addEventListener('resize', () => {
-    width = canvas.width = canvas.parentElement.clientWidth || 380;
-    height = canvas.height = 320;
-  });
+  function resizeCanvas() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+  }
 
-  const globeRadius = Math.min(width, height) * 0.38;
-  const center = { x: width / 2, y: height / 2 };
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
 
-  // Rotation angles (In radians)
-  let rotX = 0.25;
-  let rotY = 0;
+  // 9 SECTOR WAYPOINTS (Scroll Choreography)
+  const sectorWaypoints = [
+    {
+      id: 'hero',
+      name: '01 // WAR ROOM HQ',
+      target: 'BENGALURU DEFENSE HUB',
+      xRatio: 0.68,
+      yRatio: 0.50,
+      scale: 1.10,
+      rotY: 0.35,
+      rotX: 0.22,
+      zoomText: '1.10x [WAR ROOM]'
+    },
+    {
+      id: 'simulator',
+      name: '02 // THREAT HUNT',
+      target: 'INGRESS VECTORS // ST. PETERSBURG',
+      xRatio: 0.30,
+      yRatio: 0.52,
+      scale: 1.55,
+      rotY: 1.18,
+      rotX: 0.32,
+      zoomText: '1.55x [DEEP SCAN]'
+    },
+    {
+      id: 'mitre',
+      name: '03 // MITRE TTPs',
+      target: 'GLOBAL THREAT HORIZON',
+      xRatio: 0.78,
+      yRatio: 0.48,
+      scale: 0.82,
+      rotY: 2.15,
+      rotX: 0.16,
+      zoomText: '0.82x [ORBITAL VISTA]'
+    },
+    {
+      id: 'about',
+      name: '04 // DEFENSE PILLARS',
+      target: 'SENTINEL FOUNDATION CORE',
+      xRatio: 0.50,
+      yRatio: 0.54,
+      scale: 1.25,
+      rotY: 3.12,
+      rotX: 0.20,
+      zoomText: '1.25x [CORE AURA]'
+    },
+    {
+      id: 'skills',
+      name: '05 // DEFENSE STACK',
+      target: 'TELEMETRY SENSOR ARSENAL',
+      xRatio: 0.80,
+      yRatio: 0.42,
+      scale: 0.95,
+      rotY: 4.10,
+      rotX: 0.26,
+      zoomText: '0.95x [ARSENAL SENSORS]'
+    },
+    {
+      id: 'projects',
+      name: '06 // REPOSITORIES',
+      target: 'PRODUCTION ASSET NODES',
+      xRatio: 0.26,
+      yRatio: 0.52,
+      scale: 1.40,
+      rotY: 5.00,
+      rotX: 0.18,
+      zoomText: '1.40x [PRODUCTION DEPLOYMENTS]'
+    },
+    {
+      id: 'experience',
+      name: '07 // TRACK RECORD',
+      target: 'OPERATIONAL ENGAGEMENTS',
+      xRatio: 0.74,
+      yRatio: 0.50,
+      scale: 1.05,
+      rotY: 5.75,
+      rotX: 0.22,
+      zoomText: '1.05x [TACTICAL TIMELINE]'
+    },
+    {
+      id: 'terminal',
+      name: '08 // SOC TERMINAL',
+      target: 'SECURE KERNEL PROMPT',
+      xRatio: 0.50,
+      yRatio: 0.50,
+      scale: 1.30,
+      rotY: 6.35,
+      rotX: 0.15,
+      zoomText: '1.30x [TERMINAL MATRIX]'
+    },
+    {
+      id: 'contact',
+      name: '09 // SECURE UPLINK',
+      target: 'BENGALURU DEFENSE HUB (12.97°N, 77.59°E)',
+      xRatio: 0.50,
+      yRatio: 0.50,
+      scale: 1.75,
+      rotY: Math.PI * 2 + 0.38,
+      rotX: 0.22,
+      zoomText: '1.75x [BENGALURU TARGET LOCK]'
+    }
+  ];
+
+  // DOM HUD Readout Elements
+  const hudZoom = document.getElementById('hud-globe-zoom');
+  const hudSector = document.getElementById('hud-globe-sector');
+  const hudTarget = document.getElementById('hud-globe-target');
+  const hudVector = document.getElementById('hud-globe-vector');
+  const floatZoom = document.getElementById('float-globe-zoom');
+  const floatSector = document.getElementById('float-globe-sector');
+
+  // Dynamic state
+  let currentX = width * 0.68;
+  let currentY = height * 0.50;
+  let currentScale = 1.10;
+  let currentRotY = 0.35;
+  let currentRotX = 0.22;
+
+  let targetX = currentX;
+  let targetY = currentY;
+  let targetScale = currentScale;
+  let targetRotY = currentRotY;
+  let targetRotX = currentRotX;
+
+  let currentSectorName = '01 // WAR ROOM HQ';
+  let currentSectorTarget = 'BENGALURU DEFENSE HUB';
+  let currentSectorZoom = '1.10x [WAR ROOM]';
+
+  // Manual interactive modifiers
+  let manualZoomOffset = 0;
+  let manualRotY = 0;
+  let manualRotX = 0;
+  let dragVelY = 0;
+  let dragVelX = 0;
   let isDragging = false;
   let lastMouse = { x: 0, y: 0 };
-  let autoRotateSpeed = 0.005;
+  let autoOrbit = true;
+  let autoOrbitAngle = 0;
+  let alertFlare = 0; // 0 to 1 during threat surge
+  let arcSpeed = 0.009;
+  let lockedOnBengaluru = false;
 
-  // Mouse drag handlers
-  canvas.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    lastMouse.x = e.clientX;
-    lastMouse.y = e.clientY;
-  });
+  // Mouse Parallax
+  let mouseParallaxX = 0;
+  let mouseParallaxY = 0;
 
   window.addEventListener('mousemove', (e) => {
+    mouseParallaxX = (e.clientX / width - 0.5) * 0.22;
+    mouseParallaxY = (e.clientY / height - 0.5) * 0.18;
+
     if (!isDragging) return;
     const dx = e.clientX - lastMouse.x;
     const dy = e.clientY - lastMouse.y;
-    rotY += dx * 0.008;
-    rotX += dy * 0.008;
-    // Clamp vertical tilt
-    rotX = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, rotX));
+    dragVelY = dx * 0.005;
+    dragVelX = dy * 0.005;
+    manualRotY += dragVelY;
+    manualRotX += dragVelX;
+    manualRotX = Math.max(-Math.PI / 2.5, Math.min(Math.PI / 2.5, manualRotX));
     lastMouse.x = e.clientX;
     lastMouse.y = e.clientY;
   });
 
-  window.addEventListener('mouseup', () => {
-    isDragging = false;
-  });
+  // Global & Viewfinder Drag Listeners
+  function startDrag(e) {
+    // Avoid dragging when clicking on buttons, links, inputs
+    if (e.target.closest('button, a, input, textarea, select, .interactive-card, pre, code')) return;
+    isDragging = true;
+    lastMouse.x = e.clientX;
+    lastMouse.y = e.clientY;
+    document.body.classList.add('globe-dragging');
+  }
 
-  // Coordinates Database (Lat, Lon)
-  // Defense Hub: Bengaluru, India
+  function endDrag() {
+    if (isDragging) {
+      isDragging = false;
+      document.body.classList.remove('globe-dragging');
+    }
+  }
+
+  window.addEventListener('mousedown', startDrag);
+  window.addEventListener('mouseup', endDrag);
+
+  const viewfinder = document.querySelector('.globe-viewfinder-lens');
+  if (viewfinder) {
+    viewfinder.addEventListener('mousedown', (e) => {
+      e.stopPropagation();
+      startDrag(e);
+    });
+  }
+
+  // Camera Control Actions
+  function lockBengaluru() {
+    lockedOnBengaluru = true;
+    manualRotY = 0;
+    manualRotX = 0;
+    targetRotY = Math.PI * 2 + 0.38;
+    targetRotX = 0.22;
+    manualZoomOffset = 0.45;
+    targetX = width * 0.5;
+    targetY = height * 0.5;
+    if (hudTarget) hudTarget.textContent = 'LOCKED: BENGALURU (12.97°N, 77.59°E)';
+    setTimeout(() => { lockedOnBengaluru = false; }, 3500);
+  }
+
+  function zoomIn() {
+    manualZoomOffset = Math.min(1.2, manualZoomOffset + 0.25);
+  }
+
+  function zoomOut() {
+    manualZoomOffset = Math.max(-0.55, manualZoomOffset - 0.25);
+  }
+
+  function toggleOrbit() {
+    autoOrbit = !autoOrbit;
+    const btn1 = document.getElementById('cam-toggle-spin');
+    const btn2 = document.getElementById('float-toggle-spin');
+    const activeColor = autoOrbit ? 'var(--accent-cyan)' : 'var(--text-muted)';
+    if (btn1) btn1.style.color = activeColor;
+    if (btn2) btn2.style.color = activeColor;
+  }
+
+  function triggerThreatSurge() {
+    alertFlare = 1.0;
+    arcSpeed = 0.024;
+    setTimeout(() => { arcSpeed = 0.009; }, 4000);
+    if (hudVector) hudVector.innerHTML = '<span class="text-red">⚠ THREAT SURGE: 6 VECTORS INTERCEPTED</span>';
+    setTimeout(() => {
+      if (hudVector) hudVector.innerHTML = '185.220.101.5 &rarr; <strong class="text-cyan">MITRE T1110</strong>';
+    }, 4500);
+  }
+
+  // Bind Buttons
+  const camLockBlr = document.getElementById('cam-focus-blr');
+  const floatLockBlr = document.getElementById('float-lock-blr');
+  if (camLockBlr) camLockBlr.addEventListener('click', lockBengaluru);
+  if (floatLockBlr) floatLockBlr.addEventListener('click', lockBengaluru);
+
+  const camZoomIn = document.getElementById('cam-zoom-in');
+  const floatZoomIn = document.getElementById('float-zoom-in');
+  if (camZoomIn) camZoomIn.addEventListener('click', zoomIn);
+  if (floatZoomIn) floatZoomIn.addEventListener('click', zoomIn);
+
+  const camZoomOut = document.getElementById('cam-zoom-out');
+  const floatZoomOut = document.getElementById('float-zoom-out');
+  if (camZoomOut) camZoomOut.addEventListener('click', zoomOut);
+  if (floatZoomOut) floatZoomOut.addEventListener('click', zoomOut);
+
+  const camToggleSpin = document.getElementById('cam-toggle-spin');
+  const floatToggleSpin = document.getElementById('float-toggle-spin');
+  if (camToggleSpin) camToggleSpin.addEventListener('click', toggleOrbit);
+  if (floatToggleSpin) floatToggleSpin.addEventListener('click', toggleOrbit);
+
+  const camSimSurge = document.getElementById('cam-sim-surge');
+  if (camSimSurge) camSimSurge.addEventListener('click', triggerThreatSurge);
+
+  // Hook into Incident Simulator
+  const executeBtn = document.getElementById('execute-sim-btn');
+  if (executeBtn) {
+    executeBtn.addEventListener('click', () => {
+      triggerThreatSurge();
+    });
+  }
+
+  // Geo Coordinates Database
   const bengaluru = { lat: 12.97, lon: 77.59, name: 'Bengaluru SOC Hub (23BCE010)' };
 
-  // Attack Origins
   const threatSources = [
-    { lat: 41.8, lon: 123.4, name: 'East Asia Threat Cluster', ip: '221.192.199.4', mitre: 'T1059.001', payload: 'PowerShell Obfuscation' },
-    { lat: 59.9, lon: 30.3, name: 'St. Petersburg Botnet Node', ip: '185.220.101.5', mitre: 'T1110', payload: 'SSH Brute-Force' },
-    { lat: 50.1, lon: 8.6, name: 'Frankfurt Tor Exit Relay', ip: '194.26.29.112', mitre: 'T1071', payload: 'C2 Beaconing' },
-    { lat: 37.3, lon: -121.8, name: 'Silicon Valley Ingress', ip: '104.244.42.1', mitre: 'T1190', payload: 'API Gateway Ingestion' },
-    { lat: -33.8, lon: 151.2, name: 'Sydney Telemetry Node', ip: '139.130.4.5', mitre: 'T1027', payload: 'SCA Dependency Vulnerability' }
+    { lat: 41.8, lon: 123.4, name: 'East Asia Threat Cluster', ip: '221.192.199.4', mitre: 'T1059.001', payload: 'PowerShell Obfuscation', color: '#ff3366' },
+    { lat: 59.9, lon: 30.3, name: 'St. Petersburg Botnet Node', ip: '185.220.101.5', mitre: 'T1110', payload: 'SSH Brute-Force', color: '#ff3366' },
+    { lat: 50.1, lon: 8.6, name: 'Frankfurt Tor Exit Relay', ip: '194.26.29.112', mitre: 'T1071', payload: 'C2 Beaconing', color: '#ffaa00' },
+    { lat: 37.3, lon: -121.8, name: 'Silicon Valley Ingress', ip: '104.244.42.1', mitre: 'T1190', payload: 'API Gateway Ingestion', color: '#00f2fe' },
+    { lat: 51.5, lon: -0.12, name: 'London Financial Proxy', ip: '82.165.197.1', mitre: 'T1566', payload: 'Spearphishing Relay', color: '#ff5500' },
+    { lat: -33.8, lon: 151.2, name: 'Sydney Telemetry Node', ip: '139.130.4.5', mitre: 'T1027', payload: 'SCA Dependency Vulnerability', color: '#9d4edd' }
   ];
 
-  // Helper: Lat/Lon to 3D Cartesian
+  // Continental Tactical Landmarks Point Cloud
+  const tacticalLandNodes = [
+    { lat: 12.97, lon: 77.59 }, { lat: 19.07, lon: 72.87 }, { lat: 28.61, lon: 77.20 }, { lat: 13.08, lon: 80.27 },
+    { lat: 22.57, lon: 88.36 }, { lat: 17.38, lon: 78.48 }, { lat: 35.67, lon: 139.65 }, { lat: 39.90, lon: 116.40 },
+    { lat: 31.23, lon: 121.47 }, { lat: 37.56, lon: 126.97 }, { lat: 1.35, lon: 103.82 }, { lat: 22.31, lon: 114.16 },
+    { lat: 51.50, lon: -0.12 }, { lat: 48.85, lon: 2.35 }, { lat: 50.11, lon: 8.68 }, { lat: 52.37, lon: 4.90 },
+    { lat: 52.52, lon: 13.40 }, { lat: 41.90, lon: 12.49 }, { lat: 40.41, lon: -3.70 }, { lat: 59.93, lon: 30.33 },
+    { lat: 55.75, lon: 37.61 }, { lat: 37.77, lon: -122.41 }, { lat: 40.71, lon: -74.00 }, { lat: 47.60, lon: -122.33 },
+    { lat: 41.87, lon: -87.62 }, { lat: 30.26, lon: -97.74 }, { lat: 34.05, lon: -118.24 }, { lat: 43.65, lon: -79.38 },
+    { lat: -33.86, lon: 151.20 }, { lat: -37.81, lon: 144.96 }, { lat: 25.20, lon: 55.27 }, { lat: 30.04, lon: 31.23 },
+    { lat: -23.55, lon: -46.63 }, { lat: -34.60, lon: -58.38 }
+  ];
+
+  // Helper 3D math functions
   function latLonTo3D(lat, lon, r) {
     const phi = (90 - lat) * (Math.PI / 180);
     const theta = (lon + 180) * (Math.PI / 180);
@@ -220,8 +471,7 @@ function initThreatGlobeCanvas() {
     };
   }
 
-  // Helper: 3D Rotate and Project
-  function project3D(point, rX, rY) {
+  function project3D(point, rX, rY, cx, cy, rBase) {
     // Rotate Y
     let x1 = point.x * Math.cos(rY) + point.z * Math.sin(rY);
     let z1 = -point.x * Math.sin(rY) + point.z * Math.cos(rY);
@@ -230,139 +480,329 @@ function initThreatGlobeCanvas() {
     let y2 = point.y * Math.cos(rX) - z1 * Math.sin(rX);
     let z2 = point.y * Math.sin(rX) + z1 * Math.cos(rX);
 
-    // Perspective scale
-    const perspective = 500 / (500 + z2);
+    // Perspective projection
+    const fov = 650;
+    const perspective = fov / (fov + z2);
     return {
-      x: center.x + x1 * perspective,
-      y: center.y - y2 * perspective,
+      x: cx + x1 * perspective,
+      y: cy - y2 * perspective,
       z: z2,
-      visible: z2 > -globeRadius * 0.15,
+      visible: z2 > -rBase * 0.18,
       scale: perspective
     };
   }
 
+  // Scroll Progress Tracking & Waypoint Interpolation
+  function updateScrollChoreography() {
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    const docHeight = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight
+    ) - window.innerHeight;
+
+    // Map each sector to absolute document position
+    const waypoints = sectorWaypoints.map(wp => {
+      const el = document.getElementById(wp.id);
+      const top = el ? (el.getBoundingClientRect().top + scrollY) : 0;
+      return { ...wp, top };
+    });
+
+    // Find current waypoint slice
+    let from = waypoints[0];
+    let to = waypoints[0];
+    let progress = 0;
+
+    for (let i = 0; i < waypoints.length; i++) {
+      if (scrollY >= waypoints[i].top - window.innerHeight * 0.35) {
+        from = waypoints[i];
+        to = waypoints[Math.min(i + 1, waypoints.length - 1)];
+      }
+    }
+
+    if (from !== to) {
+      const span = to.top - from.top;
+      if (span > 0) {
+        progress = Math.max(0, Math.min(1, (scrollY - from.top + window.innerHeight * 0.35) / span));
+      }
+    }
+
+    // Cosine smoothstep easing
+    const easeP = 0.5 - 0.5 * Math.cos(progress * Math.PI);
+
+    // Responsive width adjustments: Center on mobile
+    const isMobile = width < 992;
+    const fromXRatio = isMobile ? 0.50 : from.xRatio;
+    const toXRatio = isMobile ? 0.50 : to.xRatio;
+
+    targetX = width * (fromXRatio + (toXRatio - fromXRatio) * easeP);
+    targetY = height * (from.yRatio + (to.yRatio - from.yRatio) * easeP);
+    targetScale = from.scale + (to.scale - from.scale) * easeP;
+    targetRotY = from.rotY + (to.rotY - from.rotY) * easeP;
+    targetRotX = from.rotX + (to.rotX - from.rotX) * easeP;
+
+    currentSectorName = easeP < 0.5 ? from.name : to.name;
+    currentSectorTarget = easeP < 0.5 ? from.target : to.target;
+    currentSectorZoom = (targetScale + manualZoomOffset).toFixed(2) + 'x [' + (easeP < 0.5 ? from.zoomText.split('[')[1].replace(']', '') : to.zoomText.split('[')[1].replace(']', '')) + ']';
+
+    // Update HUD readouts
+    if (hudZoom) hudZoom.textContent = currentSectorZoom;
+    if (hudSector) hudSector.textContent = currentSectorName;
+    if (hudTarget && !lockedOnBengaluru) hudTarget.textContent = currentSectorTarget;
+    if (floatZoom) floatZoom.textContent = (targetScale + manualZoomOffset).toFixed(2) + 'x';
+    if (floatSector) floatSector.textContent = currentSectorName.split('//')[0].trim();
+  }
+
+  window.addEventListener('scroll', updateScrollChoreography, { passive: true });
+  updateScrollChoreography();
+
   let arcProgress = 0;
 
+  // Main Render Loop
   function renderGlobe() {
+    ctx.save();
+    ctx.scale(dpr, dpr);
     ctx.clearRect(0, 0, width, height);
 
-    if (!isDragging) {
-      rotY += autoRotateSpeed;
-    }
-    arcProgress = (arcProgress + 0.012) % 1;
+    // Physics Lerping (0.07 lerp coefficient for silky smooth motion)
+    currentX += (targetX - currentX) * 0.07;
+    currentY += (targetY - currentY) * 0.07;
+    currentScale += (targetScale - currentScale) * 0.07;
+    currentRotY += (targetRotY - currentRotY) * 0.07;
+    currentRotX += (targetRotX - currentRotX) * 0.07;
 
-    // 1. Draw Globe Outer Atmosphere Glow
-    const gradient = ctx.createRadialGradient(center.x, center.y, globeRadius * 0.6, center.x, center.y, globeRadius * 1.15);
-    gradient.addColorStop(0, 'rgba(0, 242, 254, 0.04)');
-    gradient.addColorStop(0.8, 'rgba(0, 242, 254, 0.1)');
-    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-    ctx.fillStyle = gradient;
+    // Momentum damping for drag
+    if (!isDragging) {
+      dragVelY *= 0.92;
+      dragVelX *= 0.92;
+      manualRotY += dragVelY;
+      manualRotX += dragVelX;
+    }
+
+    if (autoOrbit && !isDragging && !lockedOnBengaluru) {
+      autoOrbitAngle += 0.0035;
+    }
+
+    if (alertFlare > 0) {
+      alertFlare = Math.max(0, alertFlare - 0.015);
+    }
+
+    arcProgress = (arcProgress + arcSpeed) % 1;
+
+    // Base globe radius scaled to screen size and zoom
+    const baseRadius = Math.min(width, height) * 0.38;
+    const effectiveRadius = Math.max(80, baseRadius * (currentScale + manualZoomOffset));
+    const effectiveRotY = currentRotY + autoOrbitAngle + manualRotY + mouseParallaxX;
+    const effectiveRotX = currentRotX + manualRotX + mouseParallaxY;
+    const cx = currentX;
+    const cy = currentY;
+
+    // 1. Outer Atmospheric Corona & Glow
+    const glowRadius = effectiveRadius * 1.25;
+    const glow = ctx.createRadialGradient(cx, cy, effectiveRadius * 0.55, cx, cy, glowRadius);
+    if (alertFlare > 0.05) {
+      // Crimson threat alert glow
+      glow.addColorStop(0, 'rgba(255, 30, 80, ' + (0.15 * alertFlare) + ')');
+      glow.addColorStop(0.7, 'rgba(255, 51, 102, ' + (0.28 * alertFlare) + ')');
+      glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    } else {
+      // Sleek cyan / emerald atmospheric aura
+      glow.addColorStop(0, 'rgba(0, 242, 254, 0.04)');
+      glow.addColorStop(0.65, 'rgba(0, 242, 254, 0.12)');
+      glow.addColorStop(0.9, 'rgba(0, 255, 136, 0.06)');
+      glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    }
+    ctx.fillStyle = glow;
     ctx.beginPath();
-    ctx.arc(center.x, center.y, globeRadius * 1.15, 0, Math.PI * 2);
+    ctx.arc(cx, cy, glowRadius, 0, Math.PI * 2);
     ctx.fill();
 
-    // 2. Draw Wireframe Latitude Rings
-    ctx.strokeStyle = 'rgba(0, 242, 254, 0.14)';
-    ctx.lineWidth = 1;
-    for (let lat = -60; lat <= 60; lat += 30) {
+    // 2. Planet Shaded Body Disk (Dark cyber sphere with edge rim)
+    const bodyGrad = ctx.createRadialGradient(cx - effectiveRadius * 0.25, cy - effectiveRadius * 0.25, effectiveRadius * 0.1, cx, cy, effectiveRadius);
+    bodyGrad.addColorStop(0, 'rgba(5, 12, 26, 0.88)');
+    bodyGrad.addColorStop(0.8, 'rgba(3, 8, 18, 0.92)');
+    bodyGrad.addColorStop(1, alertFlare > 0.1 ? 'rgba(255, 51, 102, 0.3)' : 'rgba(0, 242, 254, 0.25)');
+    ctx.fillStyle = bodyGrad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, effectiveRadius, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 3. Latitude Parallels (Wireframe Grid)
+    const latStep = 15;
+    for (let lat = -75; lat <= 75; lat += latStep) {
+      const isEquator = lat === 0;
       ctx.beginPath();
       let first = true;
-      for (let lon = 0; lon <= 360; lon += 10) {
-        const p3d = latLonTo3D(lat, lon, globeRadius);
-        const proj = project3D(p3d, rotX, rotY);
+      for (let lon = 0; lon <= 360; lon += 6) {
+        const p3d = latLonTo3D(lat, lon, effectiveRadius);
+        const proj = project3D(p3d, effectiveRotX, effectiveRotY, cx, cy, effectiveRadius);
         if (proj.visible) {
           if (first) { ctx.moveTo(proj.x, proj.y); first = false; }
           else { ctx.lineTo(proj.x, proj.y); }
+        } else {
+          first = true;
         }
       }
+      ctx.strokeStyle = isEquator
+        ? (alertFlare > 0.1 ? 'rgba(255, 51, 102, 0.45)' : 'rgba(0, 242, 254, 0.42)')
+        : (alertFlare > 0.1 ? 'rgba(255, 51, 102, 0.16)' : 'rgba(0, 242, 254, 0.14)');
+      ctx.lineWidth = isEquator ? 1.6 : 0.9;
       ctx.stroke();
     }
 
-    // 3. Draw Wireframe Longitude Rings
-    for (let lon = 0; lon < 360; lon += 45) {
+    // 4. Longitude Meridians (Wireframe Grid)
+    for (let lon = 0; lon < 360; lon += 24) {
       ctx.beginPath();
       let first = true;
-      for (let lat = -90; lat <= 90; lat += 10) {
-        const p3d = latLonTo3D(lat, lon, globeRadius);
-        const proj = project3D(p3d, rotX, rotY);
+      for (let lat = -90; lat <= 90; lat += 5) {
+        const p3d = latLonTo3D(lat, lon, effectiveRadius);
+        const proj = project3D(p3d, effectiveRotX, effectiveRotY, cx, cy, effectiveRadius);
         if (proj.visible) {
           if (first) { ctx.moveTo(proj.x, proj.y); first = false; }
           else { ctx.lineTo(proj.x, proj.y); }
+        } else {
+          first = true;
         }
       }
+      ctx.strokeStyle = alertFlare > 0.1 ? 'rgba(255, 51, 102, 0.16)' : 'rgba(0, 242, 254, 0.14)';
+      ctx.lineWidth = 0.9;
       ctx.stroke();
     }
 
-    // 4. Project Defense Hub (Bengaluru)
-    const hub3d = latLonTo3D(bengaluru.lat, bengaluru.lon, globeRadius);
-    const hubProj = project3D(hub3d, rotX, rotY);
+    // 5. Continental Dot-Matrix Landmarks
+    tacticalLandNodes.forEach((node) => {
+      const node3d = latLonTo3D(node.lat, node.lon, effectiveRadius);
+      const nodeProj = project3D(node3d, effectiveRotX, effectiveRotY, cx, cy, effectiveRadius);
+      if (nodeProj.visible && nodeProj.z > 0) {
+        ctx.beginPath();
+        ctx.arc(nodeProj.x, nodeProj.y, 1.8 * nodeProj.scale, 0, Math.PI * 2);
+        ctx.fillStyle = alertFlare > 0.1 ? 'rgba(255, 100, 140, 0.6)' : 'rgba(0, 242, 254, 0.55)';
+        ctx.fill();
+      }
+    });
+
+    // 6. Project Defense Hub: Bengaluru, India (12.97°N, 77.59°E)
+    const hub3d = latLonTo3D(bengaluru.lat, bengaluru.lon, effectiveRadius);
+    const hubProj = project3D(hub3d, effectiveRotX, effectiveRotY, cx, cy, effectiveRadius);
 
     if (hubProj.visible) {
-      // Pulsing green defense beacon
+      // Emerald Core Node
       ctx.beginPath();
-      ctx.arc(hubProj.x, hubProj.y, 5 * hubProj.scale, 0, Math.PI * 2);
+      ctx.arc(hubProj.x, hubProj.y, 6.5 * hubProj.scale, 0, Math.PI * 2);
       ctx.fillStyle = '#00ff88';
       ctx.shadowColor = '#00ff88';
-      ctx.shadowBlur = 15;
+      ctx.shadowBlur = 18;
       ctx.fill();
-
-      // Expanding radar beacon ring
-      const ringRadius = (12 + Math.sin(Date.now() * 0.005) * 6) * hubProj.scale;
-      ctx.beginPath();
-      ctx.arc(hubProj.x, hubProj.y, ringRadius, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(0, 255, 136, 0.5)';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
       ctx.shadowBlur = 0;
-    }
 
-    // 5. Draw Attack Origins and Parabolic Arcs
-    threatSources.forEach((threat, idx) => {
-      const src3d = latLonTo3D(threat.lat, threat.lon, globeRadius);
-      const srcProj = project3D(src3d, rotX, rotY);
-
-      if (srcProj.visible) {
-        // Red attack dot
+      // Concentric Radar Waves
+      const tNow = Date.now() * 0.0035;
+      for (let rIdx = 0; rIdx < 3; rIdx++) {
+        const ringScale = ((tNow + rIdx * 0.33) % 1);
+        const ringRadius = (10 + ringScale * 26) * hubProj.scale;
+        const ringAlpha = (1 - ringScale) * 0.65;
         ctx.beginPath();
-        ctx.arc(srcProj.x, srcProj.y, 3.5 * srcProj.scale, 0, Math.PI * 2);
-        ctx.fillStyle = '#ff3366';
-        ctx.shadowColor = '#ff3366';
-        ctx.shadowBlur = 10;
-        ctx.fill();
-        ctx.shadowBlur = 0;
+        ctx.arc(hubProj.x, hubProj.y, ringRadius, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(0, 255, 136, ' + ringAlpha + ')';
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
       }
 
-      // Parabolic Arc to Bengaluru
+      // Tactical Reticle Callout (When node is clearly in front)
+      if (hubProj.z > effectiveRadius * 0.2) {
+        ctx.strokeStyle = 'rgba(0, 255, 136, 0.7)';
+        ctx.lineWidth = 1;
+        // Crosshair box
+        const boxSize = 14 * hubProj.scale;
+        ctx.strokeRect(hubProj.x - boxSize / 2, hubProj.y - boxSize / 2, boxSize, boxSize);
+
+        // Leader line to HUD tag
+        const tagX = hubProj.x + 35 * hubProj.scale;
+        const tagY = hubProj.y - 25 * hubProj.scale;
+        ctx.beginPath();
+        ctx.moveTo(hubProj.x + boxSize / 2, hubProj.y - boxSize / 2);
+        ctx.lineTo(tagX, tagY);
+        ctx.lineTo(tagX + 85, tagY);
+        ctx.stroke();
+
+        ctx.font = '600 ' + Math.round(10 * Math.max(0.85, hubProj.scale)) + 'px "JetBrains Mono", monospace';
+        ctx.fillStyle = '#00ff88';
+        ctx.fillText('BENGALURU HUB', tagX + 4, tagY - 4);
+        ctx.font = '500 ' + Math.round(8.5 * Math.max(0.85, hubProj.scale)) + 'px "JetBrains Mono", monospace';
+        ctx.fillStyle = '#00f2fe';
+        ctx.fillText('12.97°N, 77.59°E', tagX + 4, tagY + 11);
+      }
+    }
+
+    // 7. Attack Vectors & 3D Parabolic Ballistic Arcs
+    threatSources.forEach((threat, idx) => {
+      const src3d = latLonTo3D(threat.lat, threat.lon, effectiveRadius);
+      const srcProj = project3D(src3d, effectiveRotX, effectiveRotY, cx, cy, effectiveRadius);
+
+      if (srcProj.visible) {
+        // Adversary Origin Beacon
+        ctx.beginPath();
+        ctx.arc(srcProj.x, srcProj.y, 4.5 * srcProj.scale, 0, Math.PI * 2);
+        ctx.fillStyle = alertFlare > 0.1 ? '#ff0055' : threat.color;
+        ctx.shadowColor = alertFlare > 0.1 ? '#ff0055' : threat.color;
+        ctx.shadowBlur = 12;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Expanding hazard pulse
+        const hazardRadius = (7 + Math.sin(Date.now() * 0.006 + idx) * 3) * srcProj.scale;
+        ctx.beginPath();
+        ctx.arc(srcProj.x, srcProj.y, hazardRadius, 0, Math.PI * 2);
+        ctx.strokeStyle = alertFlare > 0.1 ? 'rgba(255, 0, 85, 0.45)' : 'rgba(255, 51, 102, 0.35)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      // Arced 3D Trajectory to Bengaluru Hub
       if (srcProj.visible && hubProj.visible) {
         ctx.beginPath();
         ctx.moveTo(srcProj.x, srcProj.y);
 
-        // Control point: pushed radially outward in 3D
+        // Control point: Arched in 3D space above the globe
         const midLat = (threat.lat + bengaluru.lat) / 2;
         const midLon = (threat.lon + bengaluru.lon) / 2;
-        const mid3d = latLonTo3D(midLat, midLon, globeRadius * 1.35);
-        const midProj = project3D(mid3d, rotX, rotY);
+        const mid3d = latLonTo3D(midLat, midLon, effectiveRadius * 1.38);
+        const midProj = project3D(mid3d, effectiveRotX, effectiveRotY, cx, cy, effectiveRadius);
 
         ctx.quadraticCurveTo(midProj.x, midProj.y, hubProj.x, hubProj.y);
-        ctx.strokeStyle = 'rgba(255, 51, 102, 0.35)';
-        ctx.lineWidth = 1.2;
+        ctx.strokeStyle = alertFlare > 0.1 ? 'rgba(255, 51, 102, 0.55)' : 'rgba(255, 51, 102, 0.30)';
+        ctx.lineWidth = alertFlare > 0.1 ? 1.8 : 1.2;
         ctx.stroke();
 
-        // Traveling attack packet pulse along quadratic curve
-        const t = (arcProgress + idx * 0.22) % 1;
+        // Traveling Photon Packet Train
+        const t = (arcProgress + idx * 0.18) % 1;
         const px = (1 - t) * (1 - t) * srcProj.x + 2 * (1 - t) * t * midProj.x + t * t * hubProj.x;
         const py = (1 - t) * (1 - t) * srcProj.y + 2 * (1 - t) * t * midProj.y + t * t * hubProj.y;
 
+        // Packet Head
         ctx.beginPath();
-        ctx.arc(px, py, 3, 0, Math.PI * 2);
-        ctx.fillStyle = '#00f2fe';
-        ctx.shadowColor = '#00f2fe';
-        ctx.shadowBlur = 12;
+        ctx.arc(px, py, (alertFlare > 0.1 ? 4.5 : 3.2), 0, Math.PI * 2);
+        ctx.fillStyle = alertFlare > 0.1 ? '#ff3366' : '#00f2fe';
+        ctx.shadowColor = alertFlare > 0.1 ? '#ff3366' : '#00f2fe';
+        ctx.shadowBlur = 14;
         ctx.fill();
         ctx.shadowBlur = 0;
+
+        // Packet Trail
+        const tTrail = Math.max(0, t - 0.04);
+        const tx = (1 - tTrail) * (1 - tTrail) * srcProj.x + 2 * (1 - tTrail) * tTrail * midProj.x + tTrail * tTrail * hubProj.x;
+        const ty = (1 - tTrail) * (1 - tTrail) * srcProj.y + 2 * (1 - tTrail) * tTrail * midProj.y + tTrail * tTrail * hubProj.y;
+        ctx.beginPath();
+        ctx.moveTo(tx, ty);
+        ctx.lineTo(px, py);
+        ctx.strokeStyle = alertFlare > 0.1 ? 'rgba(255, 51, 102, 0.8)' : 'rgba(0, 242, 254, 0.7)';
+        ctx.lineWidth = 2.4;
+        ctx.stroke();
       }
     });
 
+    ctx.restore();
     requestAnimationFrame(renderGlobe);
   }
 

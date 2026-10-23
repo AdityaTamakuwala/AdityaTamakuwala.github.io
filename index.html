@@ -72,6 +72,7 @@
 
   <!-- Background Dynamic Canvas & Hex Overlay -->
   <div class="cyber-bg-overlay"></div>
+  <canvas id="bg-threat-globe-canvas" class="bg-threat-globe-canvas" aria-hidden="true"></canvas>
   <canvas id="matrix-canvas" class="matrix-canvas" aria-hidden="true"></canvas>
 
   <!-- Top Scroll Laser Progress & Sector HUD -->
@@ -329,17 +330,68 @@
               </div>
             </div>
 
-            <!-- View 2: Interactive 3D Threat Globe -->
+            <!-- View 2: Interactive 3D Threat Globe Mission Control Viewfinder -->
             <div class="deck-view" id="deck-view-globe">
               <div class="globe-container">
-                <canvas id="threat-globe-canvas" class="threat-globe-canvas" width="400" height="340"></canvas>
+                <div class="globe-viewfinder-lens">
+                  <div class="viewfinder-crosshair crosshair-h"></div>
+                  <div class="viewfinder-crosshair crosshair-v"></div>
+                  <div class="viewfinder-bracket bracket-tl"></div>
+                  <div class="viewfinder-bracket bracket-tr"></div>
+                  <div class="viewfinder-bracket bracket-bl"></div>
+                  <div class="viewfinder-bracket bracket-br"></div>
+
+                  <div class="viewfinder-badge">
+                    <span class="pulse-dot"></span> 3D THREAT GLOBE // LIVE BACKGROUND RADAR
+                  </div>
+
+                  <!-- Live Synchronized Telemetry HUD -->
+                  <div class="globe-telemetry-hud">
+                    <div class="telemetry-item">
+                      <span class="telemetry-lbl">CAMERA ZOOM:</span>
+                      <strong class="telemetry-val text-cyan" id="hud-globe-zoom">1.10x [WAR ROOM]</strong>
+                    </div>
+                    <div class="telemetry-item">
+                      <span class="telemetry-lbl">ACTIVE SECTOR:</span>
+                      <strong class="telemetry-val text-green" id="hud-globe-sector">01 // WAR ROOM HQ</strong>
+                    </div>
+                    <div class="telemetry-item">
+                      <span class="telemetry-lbl">TARGET HUB:</span>
+                      <strong class="telemetry-val text-yellow" id="hud-globe-target">BENGALURU (12.97°N, 77.59°E)</strong>
+                    </div>
+                    <div class="telemetry-item">
+                      <span class="telemetry-lbl">ACTIVE VECTOR:</span>
+                      <strong class="telemetry-val text-orange" id="hud-globe-vector">185.220.101.5 &rarr; MITRE T1110</strong>
+                    </div>
+                  </div>
+
+                  <!-- Camera Quick Actions Grid -->
+                  <div class="globe-camera-actions">
+                    <button type="button" class="hud-cam-btn" id="cam-focus-blr" title="Lock camera on Bengaluru Defense Hub">
+                      <span class="cam-icon">⌖</span> LOCK BENGALURU
+                    </button>
+                    <button type="button" class="hud-cam-btn" id="cam-zoom-in" title="Zoom in camera">
+                      <span class="cam-icon">+</span> ZOOM IN
+                    </button>
+                    <button type="button" class="hud-cam-btn" id="cam-zoom-out" title="Zoom out camera">
+                      <span class="cam-icon">-</span> ZOOM OUT
+                    </button>
+                    <button type="button" class="hud-cam-btn" id="cam-toggle-spin" title="Toggle autonomous globe orbit">
+                      <span class="cam-icon">↻</span> AUTO ORBIT
+                    </button>
+                    <button type="button" class="hud-cam-btn btn-surge" id="cam-sim-surge" title="Trigger threat surge pulse">
+                      <span class="cam-icon">⚡</span> THREAT SURGE
+                    </button>
+                  </div>
+                </div>
+
                 <div class="globe-hud-overlay">
                   <div class="globe-legend">
                     <span class="legend-item"><span class="legend-dot dot-bengaluru"></span> Defense Hub: Bengaluru</span>
                     <span class="legend-item"><span class="legend-dot dot-attack"></span> Attack Vectors (Drag to Rotate)</span>
                   </div>
-                  <div class="globe-live-vector" id="globe-live-vector">
-                    <span>TRACKING: <strong class="text-cyan">185.220.101.5 &rarr; MITRE T1110</strong></span>
+                  <div class="globe-status-bar">
+                    <span>ENGINE: <strong class="text-cyan">3D SPHERICAL PERSPECTIVE</strong></span>
                   </div>
                 </div>
               </div>
@@ -1418,6 +1470,24 @@
       </div>
     </div>
   </footer>
+
+  <!-- Floating 3D Globe Radar Controller Pill (Always Accessible) -->
+  <aside class="globe-floating-hud" id="globe-floating-hud" aria-label="3D Threat Globe Controls">
+    <div class="floating-hud-status">
+      <span class="hud-pulse-dot"></span>
+      <span class="floating-hud-title">3D GLOBE</span>
+      <span class="floating-hud-sep">|</span>
+      <span class="floating-hud-val" id="float-globe-zoom">1.10x</span>
+      <span class="floating-hud-sep">|</span>
+      <span class="floating-hud-sector" id="float-globe-sector">SEC 01</span>
+    </div>
+    <div class="floating-hud-btns">
+      <button type="button" class="float-btn" id="float-zoom-in" title="Zoom Globe In" aria-label="Zoom In">+</button>
+      <button type="button" class="float-btn" id="float-zoom-out" title="Zoom Globe Out" aria-label="Zoom Out">-</button>
+      <button type="button" class="float-btn" id="float-lock-blr" title="Lock Bengaluru Defense Hub" aria-label="Lock Bengaluru">⌖</button>
+      <button type="button" class="float-btn" id="float-toggle-spin" title="Toggle Auto Orbit" aria-label="Toggle Orbit">↻</button>
+    </div>
+  </aside>
 
   <script src="./three.min.js"></script>
   <script src="./app.js"></script>
