@@ -1,40 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="cyan" data-defcon="4">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aditya Tamakuwala | Cybersecurity Analyst & Threat Intel Specialist</title>
-  <meta name="description" content="Portfolio of Aditya Tamakuwala — Cybersecurity Analyst, SOC Specialist, Threat Intelligence Architect, and DevSecOps Engineer. Explore SIEM implementations, Wazuh SOC labs, and security automation." />
-  <meta name="keywords" content="Aditya Tamakuwala, Cybersecurity Analyst, SOC Analyst, Threat Intelligence, SIEM, Wazuh, ELK Stack, DevSecOps, BankSec-TIP, MITRE ATT&CK, Python, Security Portfolio" />
+  <title>TitanSOC OS v2.6 // Aditya Tamakuwala — Cybersecurity Command Center & Threat Intel</title>
+  <meta name="description" content="TitanSOC OS v2.6: Futuristic Cybersecurity Command Center & Portfolio of Aditya Tamakuwala (23BCE010) — Cybersecurity Analyst, SOC & Threat Intelligence Specialist. Interactive 3D Cyber Threat Globe, Live Incident Simulator, and MITRE ATT&CK Matrix." />
+  <meta name="keywords" content="TitanSOC OS, Aditya Tamakuwala, 23BCE010, Cybersecurity Analyst, SOC War Room, 3D Threat Globe, Threat Intelligence, Wazuh SIEM, ELK Stack, DevSecOps, MITRE ATT&CK, BankSec-TIP" />
   <meta name="author" content="Aditya Tamakuwala" />
 
   <!-- Open Graph / Social Meta -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Aditya Tamakuwala | Cybersecurity Analyst & Threat Intel Specialist" />
-  <meta property="og:description" content="Defensive Security, Wazuh SIEM, Threat Intelligence Pipelines, and DevSecOps Automation." />
+  <meta property="og:title" content="TitanSOC OS v2.6 // Aditya Tamakuwala — Cybersecurity Command Center" />
+  <meta property="og:description" content="Interactive 3D Threat Globe, Live SOC Incident Simulator, Wazuh SIEM Labs & Threat Intelligence Operating System." />
   <meta property="og:url" content="https://adityatamakuwala.github.io" />
   <meta property="og:image" content="./avatar.png" />
-
-  <!-- Twitter Meta -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Aditya Tamakuwala | Cybersecurity Analyst & Threat Intel Specialist" />
-  <meta name="twitter:description" content="Defensive Security, Wazuh SIEM, Threat Intelligence Pipelines, and DevSecOps Automation." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-  <!-- Favicon / Shield Icon -->
+  <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>" />
 
   <link rel="stylesheet" href="./styles.css" />
 </head>
-<body class="cyber-theme">
+<body class="tactical-body">
   <!-- Glowing Cursor Follower Spotlight -->
   <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
 
-  <!-- Cyber Background Canvas & Grid Glow -->
+  <!-- Background Dynamic Canvas & Hex Overlay -->
   <div class="cyber-bg-overlay"></div>
   <canvas id="matrix-canvas" class="matrix-canvas" aria-hidden="true"></canvas>
 
@@ -45,67 +40,119 @@
     </div>
     <div class="scroll-sector-hud" id="scroll-sector-hud">
       <span class="hud-sector-icon">📡</span>
-      <span class="hud-sector-text" id="hud-sector-text">SECTOR 01 // TELEMETRY HQ</span>
+      <span class="hud-sector-text" id="hud-sector-text">SECTOR 01 // WAR ROOM HQ</span>
       <span class="hud-sector-pct" id="hud-sector-pct">0%</span>
     </div>
   </div>
 
   <!-- Interactive Cyber Sector Floating Minimap -->
   <nav class="cyber-sector-nav" id="cyber-sector-nav" aria-label="Sector Fast Navigation">
-    <a href="#hero" class="sector-dot active" data-sector="01" data-label="Telemetry HQ" aria-label="Go to Telemetry HQ">
+    <a href="#hero" class="sector-dot active" data-sector="01" data-label="War Room HQ" aria-label="Go to War Room HQ">
       <span class="dot-radar"></span>
-      <span class="dot-label">01. HQ</span>
+      <span class="dot-label">01. WAR ROOM</span>
     </a>
-    <a href="#about" class="sector-dot" data-sector="02" data-label="Defense Pillars" aria-label="Go to Defense Pillars">
+    <a href="#simulator" class="sector-dot" data-sector="02" data-label="Incident Simulator" aria-label="Go to Threat Simulator">
       <span class="dot-radar"></span>
-      <span class="dot-label">02. Pillars</span>
+      <span class="dot-label">02. SIMULATOR</span>
     </a>
-    <a href="#skills" class="sector-dot" data-sector="03" data-label="Defense Matrix" aria-label="Go to Defense Matrix">
+    <a href="#mitre" class="sector-dot" data-sector="03" data-label="MITRE Matrix" aria-label="Go to MITRE Matrix">
       <span class="dot-radar"></span>
-      <span class="dot-label">03. Matrix</span>
+      <span class="dot-label">03. MITRE ATT&CK</span>
     </a>
-    <a href="#projects" class="sector-dot" data-sector="04" data-label="Operations & Repos" aria-label="Go to Operations & Repos">
+    <a href="#about" class="sector-dot" data-sector="04" data-label="Defense Pillars" aria-label="Go to Defense Pillars">
       <span class="dot-radar"></span>
-      <span class="dot-label">04. Ops Repos</span>
+      <span class="dot-label">04. PILLARS</span>
     </a>
-    <a href="#experience" class="sector-dot" data-sector="05" data-label="Track Record" aria-label="Go to Track Record">
+    <a href="#skills" class="sector-dot" data-sector="05" data-label="Defense Matrix" aria-label="Go to Defense Matrix">
       <span class="dot-radar"></span>
-      <span class="dot-label">05. Experience</span>
+      <span class="dot-label">05. STACK</span>
     </a>
-    <a href="#terminal" class="sector-dot" data-sector="06" data-label="SOC Terminal" aria-label="Go to SOC Terminal">
+    <a href="#projects" class="sector-dot" data-sector="06" data-label="Operations & Repos" aria-label="Go to Operations & Repos">
       <span class="dot-radar"></span>
-      <span class="dot-label">06. Terminal</span>
+      <span class="dot-label">06. REPOSITORIES</span>
     </a>
-    <a href="#contact" class="sector-dot" data-sector="07" data-label="Secure Uplink" aria-label="Go to Secure Uplink">
+    <a href="#experience" class="sector-dot" data-sector="07" data-label="Track Record" aria-label="Go to Track Record">
       <span class="dot-radar"></span>
-      <span class="dot-label">07. Uplink</span>
+      <span class="dot-label">07. EXPERIENCE</span>
+    </a>
+    <a href="#terminal" class="sector-dot" data-sector="08" data-label="SOC Terminal" aria-label="Go to SOC Terminal">
+      <span class="dot-radar"></span>
+      <span class="dot-label">08. TERMINAL</span>
+    </a>
+    <a href="#contact" class="sector-dot" data-sector="09" data-label="Secure Uplink" aria-label="Go to Secure Uplink">
+      <span class="dot-radar"></span>
+      <span class="dot-label">09. UPLINK</span>
     </a>
   </nav>
 
   <!-- Notification Toast Container -->
   <div id="toast-container" class="toast-container" aria-live="polite"></div>
 
-  <!-- Header / Navigation -->
+  <!-- Top Tactical Cockpit Command Bar -->
+  <aside class="tactical-cockpit-bar" id="cockpit-bar">
+    <div class="cockpit-container">
+      <!-- Live Telemetry Stream -->
+      <div class="cockpit-telemetry" id="cockpit-telemetry">
+        <span class="siren-icon" id="defcon-siren" style="display:none;" aria-hidden="true">🚨</span>
+        <span class="telem-chip"><span class="pulse-dot"></span> TITANSOC: <strong>ONLINE</strong></span>
+        <span class="telem-divider">|</span>
+        <span class="telem-metric">INGEST: <strong class="text-cyan">24.2k eps</strong></span>
+        <span class="telem-divider">|</span>
+        <span class="telem-metric">DEFENSE NODES: <strong class="text-green">5/5 ARMED</strong></span>
+        <span class="telem-divider">|</span>
+        <span class="telem-metric">SIEM: <strong class="text-purple">WAZUH 4.x + ELK 8.13</strong></span>
+      </div>
+
+      <!-- Controls: DEFCON, Sound FX & Theme -->
+      <div class="cockpit-controls">
+        <!-- Interactive DEFCON Switcher -->
+        <div class="defcon-control" id="defcon-toggle" title="Click to cycle DEFCON readiness level">
+          <span class="defcon-label">DEFCON:</span>
+          <span class="defcon-badge defcon-4" id="defcon-badge">LEVEL 4 // GUARDED</span>
+        </div>
+
+        <!-- Audio Synthesizer Toggle -->
+        <button class="audio-synth-btn" id="audio-synth-btn" title="Toggle Web Audio Synthesizer SFX" aria-label="Toggle Audio Sound Effects">
+          <span class="audio-icon">🔇</span>
+          <span class="audio-text">AUDIO: OFF</span>
+          <span class="audio-bars" id="audio-bars">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+
+        <!-- Tactical Palette Switcher -->
+        <div class="theme-palette-picker" id="theme-palette-picker">
+          <button class="palette-btn active" data-set-theme="cyan" title="Cyan Tactical"></button>
+          <button class="palette-btn" data-set-theme="red" title="Defcon Red Alert"></button>
+          <button class="palette-btn" data-set-theme="matrix" title="Matrix Emerald"></button>
+          <button class="palette-btn" data-set-theme="amber" title="Amber Tactical CRT"></button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Navigation Header -->
   <header class="cyber-header" id="navbar">
     <div class="nav-container">
-      <a href="#hero" class="nav-brand" aria-label="Aditya Tamakuwala Home">
+      <a href="#hero" class="nav-brand" aria-label="TitanSOC OS - Aditya Tamakuwala">
         <span class="brand-shield">🛡️</span>
         <div class="brand-text">
-          <span class="brand-name">ADITYA TAMAKUWALA</span>
-          <span class="brand-badge"><span class="pulse-dot"></span> SOC MONITOR: ACTIVE</span>
+          <span class="brand-name">TITANSOC <span class="highlight-cyan">OS v2.6</span></span>
+          <span class="brand-badge"><span class="pulse-dot"></span> DEFENSE COMMAND STATION // ADITYA TAMAKUWALA (23BCE010)</span>
         </div>
       </a>
 
       <!-- Desktop Navigation Links -->
       <nav class="nav-menu" id="nav-menu" aria-label="Main Navigation">
-        <a href="#about" class="nav-link">About</a>
-        <a href="#skills" class="nav-link">Skills & Stack</a>
-        <a href="#projects" class="nav-link">Projects & Labs</a>
-        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#hero" class="nav-link">War Room</a>
+        <a href="#simulator" class="nav-link highlight-link">⚡ Threat Simulator</a>
+        <a href="#mitre" class="nav-link">MITRE Matrix</a>
+        <a href="#projects" class="nav-link">Labs & Repos</a>
+        <a href="#skills" class="nav-link">Defense Stack</a>
         <a href="#terminal" class="nav-link nav-terminal-btn" id="nav-terminal-trigger">
           <span class="cli-icon">&gt;_</span> Terminal
         </a>
-        <a href="#contact" class="nav-link nav-cta">Get in Touch</a>
+        <a href="#contact" class="nav-link nav-cta">Secure Uplink</a>
       </nav>
 
       <!-- Action Buttons -->
@@ -120,17 +167,14 @@
             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
           </svg>
         </a>
-        <!-- Mobile Hamburger Button -->
         <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-          <span></span>
-          <span></span>
-          <span></span>
+          <span></span><span></span><span></span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Live Security Ticker -->
+  <!-- Live Threat Intelligence Ticker -->
   <aside class="live-ticker-bar" aria-label="Live Security Intelligence Ticker">
     <div class="ticker-label">
       <span class="ticker-pulse"></span> THREAT TELEMETRY
@@ -151,7 +195,7 @@
   </aside>
 
   <main>
-    <!-- Hero Section -->
+    <!-- HERO SECTION: 3D CYBER THREAT GLOBE & WAR ROOM HQ -->
     <section class="hero-section" id="hero">
       <div class="container hero-grid">
         <!-- Hero Left / Content -->
@@ -162,112 +206,426 @@
           </div>
           
           <h1 class="hero-title">
-            Defending Systems with <span class="gradient-text">Telemetry, SIEM & Threat Intelligence</span>
+            Architecting Resilient <span class="gradient-text">Defense &amp; Threat Intelligence</span>
           </h1>
 
           <p class="hero-bio">
-            Hi, I'm <strong class="text-white">Aditya Tamakuwala</strong>. I specialize in building Security Operations Center (SOC) home labs, architecting threat intelligence pipelines with the <strong>ELK Stack & Wazuh SIEM</strong>, and engineering automated <strong>DevSecOps</strong> security controls.
+            Hi, I'm <strong class="text-white">Aditya Tamakuwala</strong>. I engineer Security Operations Center (SOC) defense architectures, operationalize <strong>Wazuh SIEM &amp; ELK Stack</strong> threat pipelines, and automate enterprise <strong>DevSecOps</strong> security controls.
           </p>
 
-          <!-- Core Metas -->
+          <!-- Interactive Action Buttons -->
+          <div class="hero-ctas">
+            <a href="#simulator" class="btn btn-primary" id="launch-simulator-cta">
+              <span class="pulse-icon">⚡</span>
+              Launch Incident Simulator
+            </a>
+            <button class="btn btn-terminal" id="hero-terminal-btn">
+              <span class="cli-icon">&gt;_</span> SOC Terminal v2.0
+            </button>
+            <a href="#mitre" class="btn btn-outline">
+              MITRE ATT&CK Matrix
+            </a>
+          </div>
+
+          <!-- Live Defense HUD Bar -->
           <div class="hero-metrics-pill">
             <div class="metric-item">
               <span class="metric-num">5+</span>
-              <span class="metric-name">Security & Software Repos</span>
+              <span class="metric-name">Security Repos</span>
             </div>
             <div class="metric-divider"></div>
             <div class="metric-item">
-              <span class="metric-num">MITRE</span>
-              <span class="metric-name">ATT&CK Mapped Rules</span>
+              <span class="metric-num">1,400+</span>
+              <span class="metric-name">IOCs Ingested</span>
             </div>
             <div class="metric-divider"></div>
             <div class="metric-item">
-              <span class="metric-num">ELK + Wazuh</span>
-              <span class="metric-name">SIEM Visualization Stack</span>
+              <span class="metric-num">0.8s</span>
+              <span class="metric-name">Detection Latency</span>
             </div>
-          </div>
-
-          <!-- Hero CTAs -->
-          <div class="hero-ctas">
-            <a href="#projects" class="btn btn-primary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-              Explore Security Labs
-            </a>
-            <button class="btn btn-terminal" id="hero-terminal-btn">
-              <span class="cli-icon">&gt;_</span> Launch SOC Terminal
-            </button>
-            <a href="https://www.linkedin.com/in/aditya-tamakuwala-122442316" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-              Connect on LinkedIn
-            </a>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+              <span class="metric-num">100%</span>
+              <span class="metric-name">CI/CD Hardened</span>
+            </div>
           </div>
         </div>
 
-        <!-- Hero Right / Holographic Cyber Card -->
+        <!-- Hero Right: Interactive 3D Cyber Threat Globe & Telemetry Deck -->
         <div class="hero-visual">
-          <div class="cyber-card-wrapper">
-            <div class="cyber-card-glare"></div>
-            <div class="cyber-card">
-              <!-- Hologram Header -->
-              <div class="cyber-card-header">
-                <div class="status-indicator">
-                  <span class="pulse-ring"></span>
-                  <span class="status-text">DEFENSE LEVEL 1 // OPTIMAL</span>
-                </div>
-                <span class="security-id">ID: 23BCE010</span>
-              </div>
+          <div class="war-room-deck glassmorphism">
+            <!-- War Room Tab Switcher -->
+            <div class="deck-tabs">
+              <button class="deck-tab active" data-deck-view="globe">
+                <span class="tab-dot"></span> 3D Threat Globe
+              </button>
+              <button class="deck-tab" data-deck-view="holo">
+                <span class="tab-dot"></span> Operator Hologram
+              </button>
+            </div>
 
-              <!-- Avatar & Radar Circle -->
-              <div class="avatar-container">
-                <div class="radar-sweep"></div>
-                <div class="avatar-ring-outer"></div>
-                <div class="avatar-ring-inner"></div>
-                <img src="./avatar.png" alt="Aditya Tamakuwala Profile Photo" class="hero-avatar" />
-              </div>
-
-              <!-- Identity & Verified Badge -->
-              <div class="cyber-identity">
-                <h2 class="identity-name">Aditya Tamakuwala</h2>
-                <p class="identity-role">Threat Intel &amp; SOC Security Specialist</p>
-                <div class="identity-tags">
-                  <span class="tag">Wazuh SIEM</span>
-                  <span class="tag">Sysmon</span>
-                  <span class="tag">Elasticsearch</span>
-                  <span class="tag">DevSecOps</span>
+            <!-- View 1: Interactive 3D Threat Globe -->
+            <div class="deck-view active" id="deck-view-globe">
+              <div class="globe-container">
+                <canvas id="threat-globe-canvas" class="threat-globe-canvas" width="400" height="340"></canvas>
+                <div class="globe-hud-overlay">
+                  <div class="globe-legend">
+                    <span class="legend-item"><span class="legend-dot dot-bengaluru"></span> Defense Hub: Bengaluru</span>
+                    <span class="legend-item"><span class="legend-dot dot-attack"></span> Attack Vectors (Drag to Rotate)</span>
+                  </div>
+                  <div class="globe-live-vector" id="globe-live-vector">
+                    <span>TRACKING: <strong class="text-cyan">185.220.101.5 &rarr; MITRE T1110</strong></span>
+                  </div>
                 </div>
               </div>
+            </div>
 
-              <!-- Live HUD Telemetry Widget -->
-              <div class="cyber-hud">
-                <div class="hud-row">
-                  <span class="hud-label">SOC Status</span>
-                  <span class="hud-val text-green">ONLINE / NOMINAL</span>
+            <!-- View 2: Operator Hologram Profile -->
+            <div class="deck-view" id="deck-view-holo">
+              <div class="cyber-card">
+                <div class="cyber-card-header">
+                  <div class="status-indicator">
+                    <span class="pulse-ring"></span>
+                    <span class="status-text">DEFENSE LEVEL 1 // OPTIMAL</span>
+                  </div>
+                  <span class="security-id">ID: 23BCE010</span>
                 </div>
-                <div class="hud-row">
-                  <span class="hud-label">Threat Feeds</span>
-                  <span class="hud-val text-cyan">AlienVault &bull; AbuseIPDB</span>
+
+                <div class="avatar-container">
+                  <div class="radar-sweep"></div>
+                  <div class="avatar-ring-outer"></div>
+                  <div class="avatar-ring-inner"></div>
+                  <img src="./avatar.png" alt="Aditya Tamakuwala Profile Photo" class="hero-avatar" />
                 </div>
-                <div class="hud-row">
-                  <span class="hud-label">Pipeline Health</span>
-                  <span class="hud-val text-purple">100% Automated CI/CD</span>
+
+                <div class="cyber-identity">
+                  <h2 class="identity-name">Aditya Tamakuwala</h2>
+                  <p class="identity-role">Threat Intel &amp; SOC Security Specialist</p>
+                  <div class="identity-tags">
+                    <span class="tag">Wazuh SIEM</span>
+                    <span class="tag">Sysmon</span>
+                    <span class="tag">ELK Stack</span>
+                    <span class="tag">DevSecOps</span>
+                  </div>
                 </div>
-                <div class="hud-row">
-                  <span class="hud-label">Location</span>
-                  <span class="hud-val text-slate">Bengaluru / India</span>
+
+                <div class="cyber-hud">
+                  <div class="hud-row">
+                    <span class="hud-label">SOC Operations</span>
+                    <span class="hud-val text-green">ONLINE / NOMINAL</span>
+                  </div>
+                  <div class="hud-row">
+                    <span class="hud-label">Threat Feeds</span>
+                    <span class="hud-val text-cyan">AlienVault &bull; AbuseIPDB</span>
+                  </div>
+                  <div class="hud-row">
+                    <span class="hud-label">Location</span>
+                    <span class="hud-val text-slate">Bengaluru / India</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Action Bar -->
+            <div class="deck-footer-action">
+              <button class="btn-copy-email" id="quick-copy-email" data-email="adityatamakuwala72@gmail.com">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span>Copy adityatamakuwala72@gmail.com</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE FEATURE 1: LIVE SOC INCIDENT SIMULATION CENTER -->
+    <section class="section simulator-section" id="simulator">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">INTERACTIVE SOC SANDBOX</span>
+          <h2 class="section-title">Live Cyber Incident Simulator</h2>
+          <p class="section-desc">
+            Test my defensive security architectures in real-time. Trigger an adversary attack vector below and watch the automated telemetry, risk scoring, and SIEM mitigation respond live.
+          </p>
+        </div>
+
+        <div class="simulator-cockpit glassmorphism">
+          <!-- Incident Selector Toolbar -->
+          <div class="scenario-selector-bar">
+            <span class="scenario-label">Select Incident Scenario:</span>
+            <div class="scenario-buttons">
+              <button class="scenario-btn active" data-scenario="ransomware">
+                <span class="sc-badge sc-red">RANSOMWARE</span>
+                <span>Sysmon Process Injection</span>
+              </button>
+              <button class="scenario-btn" data-scenario="banking">
+                <span class="sc-badge sc-cyan">BANKSEC-TIP</span>
+                <span>OSINT Ingestion &amp; Firewall</span>
+              </button>
+              <button class="scenario-btn" data-scenario="iac">
+                <span class="sc-badge sc-purple">DEVSECOPS</span>
+                <span>Terraform S3 IaC Leak</span>
+              </button>
+              <button class="scenario-btn" data-scenario="biometrics">
+                <span class="sc-badge sc-orange">BIOMETRICS</span>
+                <span>Face Liveness Anti-Spoof</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Main Simulation Screen Grid -->
+          <div class="sim-screen-grid">
+            <!-- Left: Incident Control & Live Risk Meter -->
+            <div class="sim-control-panel">
+              <div class="sim-incident-info">
+                <h4 id="sim-scenario-title" class="sim-scenario-title">Ransomware Privilege Escalation via Windows Sysmon</h4>
+                <p id="sim-scenario-desc" class="sim-scenario-desc">
+                  Simulating unauthorized process injection into lsass.exe, triggering Sysmon Event ID 1 (Process Creation) and Wazuh detection rule ID 100201.
+                </p>
+              </div>
+
+              <!-- Risk Score Meter Gauge -->
+              <div class="risk-gauge-box">
+                <div class="gauge-header">
+                  <span>THREAT RISK SCORE</span>
+                  <span id="risk-score-badge" class="risk-score-badge badge-green">0 / 100 [SAFE]</span>
+                </div>
+                <div class="risk-gauge-bar">
+                  <div class="risk-fill" id="risk-fill" style="width: 0%;"></div>
                 </div>
               </div>
 
-              <!-- Quick Action Bar -->
-              <div class="card-footer-action">
-                <button class="btn-copy-email" id="quick-copy-email" data-email="adityatamakuwala72@gmail.com">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                  <span>Copy adityatamakuwala72@gmail.com</span>
-                </button>
+              <!-- Mitigation Status Box -->
+              <div class="mitigation-status-box" id="mitigation-box">
+                <div class="status-row">
+                  <span class="label">Defense Architecture:</span>
+                  <span class="value" id="sim-arch-label">Wazuh SIEM + Microsoft Sysmon</span>
+                </div>
+                <div class="status-row">
+                  <span class="label">MITRE ATT&CK:</span>
+                  <span class="value text-cyan" id="sim-mitre-label">T1059.001 (PowerShell) &amp; T1055</span>
+                </div>
+                <div class="status-row">
+                  <span class="label">Mitigation Action:</span>
+                  <span class="value text-green" id="sim-mitigation-label">STANDBY // READY</span>
+                </div>
+              </div>
+
+              <!-- Execute Simulation Button -->
+              <button class="btn btn-primary btn-block sim-execute-btn" id="execute-sim-btn">
+                <span class="sim-btn-icon">⚡</span>
+                <span id="sim-btn-text">Execute Incident Simulation</span>
+              </button>
+            </div>
+
+            <!-- Right: Real-Time Telemetry Stream Terminal -->
+            <div class="sim-telemetry-screen">
+              <div class="telem-header">
+                <div class="term-dots">
+                  <span class="dot dot-red"></span>
+                  <span class="dot dot-yellow"></span>
+                  <span class="dot dot-green"></span>
+                </div>
+                <span class="telem-title">SIEM TELEMETRY STREAM &bull; LIVE FEED</span>
+                <span class="telem-live-tag"><span class="pulse-dot"></span> LIVE</span>
+              </div>
+              <div class="telem-terminal-body" id="sim-terminal-body" tabindex="0">
+                <div class="telem-line text-muted">[00:00:00] Initializing SIEM stream monitor... Ready.</div>
+                <div class="telem-line text-muted">[00:00:00] Select a scenario on the left and click "Execute Incident Simulation".</div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- INTERACTIVE FEATURE 2: MITRE ATT&CK DEFENSE MATRIX EXPLORER -->
+    <section class="section mitre-section" id="mitre">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">THREAT HUNTING &amp; ADVERSARY MAPPING</span>
+          <h2 class="section-title">MITRE ATT&amp;CK Defense Matrix</h2>
+          <p class="section-desc">
+            Explore how my security projects and detection rules align with the MITRE Enterprise ATT&amp;CK Framework. Click on any tactic technique to inspect the detection blueprint.
+          </p>
+        </div>
+
+        <div class="mitre-matrix-container glassmorphism">
+          <div class="mitre-columns">
+            <!-- Column 1: Initial Access -->
+            <div class="mitre-column">
+              <div class="mitre-col-header">
+                <span class="mitre-col-id">TA0001</span>
+                <h4>Initial Access</h4>
+              </div>
+              <div class="mitre-cards">
+                <button class="mitre-tech-card" data-tech="T1190">
+                  <span class="tech-id">T1190</span>
+                  <span class="tech-name">Exploit Public App</span>
+                  <span class="tech-source">DevSecOps DAST</span>
+                </button>
+                <button class="mitre-tech-card" data-tech="T1566">
+                  <span class="tech-id">T1566</span>
+                  <span class="tech-name">Phishing Links</span>
+                  <span class="tech-source">BankSec-TIP</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Column 2: Execution -->
+            <div class="mitre-column">
+              <div class="mitre-col-header">
+                <span class="mitre-col-id">TA0002</span>
+                <h4>Execution</h4>
+              </div>
+              <div class="mitre-cards">
+                <button class="mitre-tech-card active" data-tech="T1059">
+                  <span class="tech-id">T1059</span>
+                  <span class="tech-name">Command &amp; Scripting</span>
+                  <span class="tech-source">Sysmon Event ID 1</span>
+                </button>
+                <button class="mitre-tech-card" data-tech="T1204">
+                  <span class="tech-id">T1204</span>
+                  <span class="tech-name">User Execution</span>
+                  <span class="tech-source">Wazuh Rule 100201</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Column 3: Persistence -->
+            <div class="mitre-column">
+              <div class="mitre-col-header">
+                <span class="mitre-col-id">TA0003</span>
+                <h4>Persistence</h4>
+              </div>
+              <div class="mitre-cards">
+                <button class="mitre-tech-card" data-tech="T1547">
+                  <span class="tech-id">T1547</span>
+                  <span class="tech-name">Boot/Logon Autostart</span>
+                  <span class="tech-source">Registry Telemetry</span>
+                </button>
+                <button class="mitre-tech-card" data-tech="T1053">
+                  <span class="tech-id">T1053</span>
+                  <span class="tech-name">Scheduled Tasks</span>
+                  <span class="tech-source">Windows Sysmon</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Column 4: Defense Evasion -->
+            <div class="mitre-column">
+              <div class="mitre-col-header">
+                <span class="mitre-col-id">TA0005</span>
+                <h4>Defense Evasion</h4>
+              </div>
+              <div class="mitre-cards">
+                <button class="mitre-tech-card" data-tech="T1070">
+                  <span class="tech-id">T1070</span>
+                  <span class="tech-name">Indicator Removal</span>
+                  <span class="tech-source">File Integrity (FIM)</span>
+                </button>
+                <button class="mitre-tech-card" data-tech="T1027">
+                  <span class="tech-id">T1027</span>
+                  <span class="tech-name">Obfuscated Payloads</span>
+                  <span class="tech-source">AlienVault OTX</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Column 5: Credential Access -->
+            <div class="mitre-column">
+              <div class="mitre-col-header">
+                <span class="mitre-col-id">TA0006</span>
+                <h4>Credential Access</h4>
+              </div>
+              <div class="mitre-cards">
+                <button class="mitre-tech-card" data-tech="T1110">
+                  <span class="tech-id">T1110</span>
+                  <span class="tech-name">Brute Force</span>
+                  <span class="tech-source">AbuseIPDB Feed</span>
+                </button>
+                <button class="mitre-tech-card" data-tech="T1003">
+                  <span class="tech-id">T1003</span>
+                  <span class="tech-name">OS Credential Dumping</span>
+                  <span class="tech-source">Sysmon Event ID 10</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Column 6: Command & Control -->
+            <div class="mitre-column">
+              <div class="mitre-col-header">
+                <span class="mitre-col-id">TA0011</span>
+                <h4>Command &amp; Control</h4>
+              </div>
+              <div class="mitre-cards">
+                <button class="mitre-tech-card" data-tech="T1071">
+                  <span class="tech-id">T1071</span>
+                  <span class="tech-name">Application Protocol</span>
+                  <span class="tech-source">Firewall Policy Engine</span>
+                </button>
+                <button class="mitre-tech-card" data-tech="T1571">
+                  <span class="tech-id">T1571</span>
+                  <span class="tech-name">Non-Standard Port</span>
+                  <span class="tech-source">Elasticsearch SIEM</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Technique Blueprint Inspector Card -->
+          <div class="mitre-inspector-panel" id="mitre-inspector-panel">
+            <div class="inspector-header">
+              <div>
+                <span class="inspector-badge text-cyan" id="insp-tech-id">TECHNIQUE T1059: Command and Scripting Interpreter</span>
+                <h3 id="insp-tech-name">Adversary PowerShell Execution &amp; Process Tampering</h3>
+              </div>
+              <span class="inspector-status-badge text-green">DEFENSE IMPLEMENTED</span>
+            </div>
+            <p id="insp-tech-desc" class="inspector-desc">
+              Adversaries abuse command and script interpreters to execute arbitrary commands, download secondary payloads, and bypass traditional signature-based antiviruses.
+            </p>
+            <div class="inspector-grid">
+              <div class="insp-col">
+                <span class="col-title">Telemetry Sensor:</span>
+                <code id="insp-sensor" class="insp-code">Microsoft Sysmon (Event ID 1: Process Creation, Event ID 3: Network Connect)</code>
+              </div>
+              <div class="insp-col">
+                <span class="col-title">Associated Lab / Repo:</span>
+                <strong id="insp-repo" class="text-cyan">AdityaTamakuwala/cybersecurity-soc-home-lab</strong>
+              </div>
+            </div>
+            <div class="inspector-code-block">
+              <div class="code-title">Wazuh XML Detection Rule Implementation:</div>
+              <pre><code id="insp-rule-code">&lt;rule id="100201" level="10"&gt;
+  &lt;if_group&gt;sysmon_process_creation&lt;/if_group&gt;
+  &lt;field name="win.eventdata.image"&gt;powershell.exe|cmd.exe&lt;/field&gt;
+  &lt;field name="win.eventdata.commandLine"&gt;-enc|-EncodedCommand|bypass&lt;/field&gt;
+  &lt;description&gt;Suspicious Encoded PowerShell Execution Detected via Sysmon&lt;/description&gt;
+  &lt;mitre&gt;&lt;id&gt;T1059.001&lt;/id&gt;&lt;/mitre&gt;
+&lt;/rule&gt;</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURAL BLUEPRINT MODAL -->
+    <div class="blueprint-modal" id="blueprint-modal" aria-hidden="true" role="dialog">
+      <div class="blueprint-modal-backdrop" id="blueprint-backdrop"></div>
+      <div class="blueprint-modal-content glassmorphism">
+        <div class="blueprint-header">
+          <div class="bp-title-group">
+            <span class="bp-badge text-cyan">SYSTEM ARCHITECTURE BLUEPRINT</span>
+            <h3 id="bp-modal-title">BankSec-TIP: Threat Intelligence Platform Data Flow</h3>
+          </div>
+          <button class="bp-close-btn" id="bp-close-btn" aria-label="Close Blueprint">&times;</button>
+        </div>
+        <div class="blueprint-body" id="bp-modal-body">
+          <!-- Dynamic SVG Architecture Diagram Injected by JS -->
+        </div>
+      </div>
+    </div>
 
     <!-- About & Core Security Pillars -->
     <section class="section about-section" id="about">
@@ -287,7 +645,7 @@
             </div>
             <h3>SIEM &amp; Telemetry Engineering</h3>
             <p>
-              Hands-on experience deploying and operating <strong>Wazuh SIEM/XDR</strong> and <strong>ELK Stack (Elasticsearch, Kibana, Filebeat)</strong>. Ingesting rich Windows Sysmon event logs, configuring index mappings, and creating dashboards for actionable incident triage.
+              Deploying and managing <strong>Wazuh SIEM/XDR</strong> and <strong>ELK Stack (Elasticsearch, Kibana, Filebeat)</strong>. Ingesting rich Windows Sysmon event logs, configuring index mappings, and creating dashboards for actionable incident triage.
             </p>
             <div class="card-footer-tags">
               <span>Wazuh 4.x</span>
@@ -319,7 +677,7 @@
             </div>
             <h3>DevSecOps &amp; AppSec Automation</h3>
             <p>
-              Embedding security into modern continuous integration pipelines: IaC scanning with <strong>Checkov</strong>, DAST vulnerability scanning with <strong>OWASP ZAP</strong>, container security with Docker &amp; Trivy, and dependency SCA for enterprise applications.
+              Embedding security into continuous integration pipelines: IaC scanning with <strong>Checkov</strong>, DAST vulnerability scanning with <strong>OWASP ZAP</strong>, container security with Docker &amp; Trivy, and dependency SCA for enterprise applications.
             </p>
             <div class="card-footer-tags">
               <span>OWASP ZAP</span>
@@ -348,7 +706,7 @@
       </div>
     </section>
 
-    <!-- Technical Skills Matrix & MITRE ATT&CK Inspector -->
+    <!-- Technical Skills Matrix -->
     <section class="section skills-section" id="skills">
       <div class="container">
         <div class="section-header">
@@ -369,7 +727,6 @@
         </div>
 
         <div class="skills-grid" id="skills-container">
-          <!-- Skill: Wazuh SIEM -->
           <div class="skill-card glassmorphism" data-category="siem">
             <div class="skill-header">
               <div class="skill-icon">📊</div>
@@ -382,7 +739,6 @@
             <div class="skill-progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
           </div>
 
-          <!-- Skill: Elasticsearch & Kibana -->
           <div class="skill-card glassmorphism" data-category="siem">
             <div class="skill-header">
               <div class="skill-icon">⚡</div>
@@ -395,7 +751,6 @@
             <div class="skill-progress-bar"><div class="progress-fill" style="width: 88%;"></div></div>
           </div>
 
-          <!-- Skill: Windows Sysmon & Telemetry -->
           <div class="skill-card glassmorphism" data-category="siem">
             <div class="skill-header">
               <div class="skill-icon">🪟</div>
@@ -408,7 +763,6 @@
             <div class="skill-progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
           </div>
 
-          <!-- Skill: Threat Intelligence Feeds -->
           <div class="skill-card glassmorphism" data-category="threat-intel">
             <div class="skill-header">
               <div class="skill-icon">🌐</div>
@@ -421,7 +775,6 @@
             <div class="skill-progress-bar"><div class="progress-fill" style="width: 92%;"></div></div>
           </div>
 
-          <!-- Skill: MITRE ATT&CK -->
           <div class="skill-card glassmorphism" data-category="threat-intel">
             <div class="skill-header">
               <div class="skill-icon">🎯</div>
@@ -434,7 +787,6 @@
             <div class="skill-progress-bar"><div class="progress-fill" style="width: 86%;"></div></div>
           </div>
 
-          <!-- Skill: OWASP ZAP & DAST -->
           <div class="skill-card glassmorphism" data-category="devsecops">
             <div class="skill-header">
               <div class="skill-icon">🔍</div>
@@ -447,7 +799,6 @@
             <div class="skill-progress-bar"><div class="progress-fill" style="width: 84%;"></div></div>
           </div>
 
-          <!-- Skill: IaC Security (Checkov & Tfsec) -->
           <div class="skill-card glassmorphism" data-category="devsecops">
             <div class="skill-header">
               <div class="skill-icon">🏗️</div>
@@ -460,12 +811,11 @@
             <div class="skill-progress-bar"><div class="progress-fill" style="width: 82%;"></div></div>
           </div>
 
-          <!-- Skill: Docker & Container Security -->
           <div class="skill-card glassmorphism" data-category="devsecops">
             <div class="skill-header">
               <div class="skill-icon">🐳</div>
               <div>
-                <h4 class="skill-title">Docker &amp; Containerization</h4>
+                <h4 class="skill-title">Docker &amp; Container Security</h4>
                 <span class="skill-level">Compose, Hardening &amp; Orchestration</span>
               </div>
             </div>
@@ -473,7 +823,6 @@
             <div class="skill-progress-bar"><div class="progress-fill" style="width: 88%;"></div></div>
           </div>
 
-          <!-- Skill: Python Automation -->
           <div class="skill-card glassmorphism" data-category="programming">
             <div class="skill-header">
               <div class="skill-icon">🐍</div>
@@ -486,7 +835,6 @@
             <div class="skill-progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
           </div>
 
-          <!-- Skill: Linux & Virtualization -->
           <div class="skill-card glassmorphism" data-category="programming">
             <div class="skill-header">
               <div class="skill-icon">🐧</div>
@@ -499,7 +847,6 @@
             <div class="skill-progress-bar"><div class="progress-fill" style="width: 92%;"></div></div>
           </div>
 
-          <!-- Skill: MERN & Cryptographic Security -->
           <div class="skill-card glassmorphism" data-category="programming">
             <div class="skill-header">
               <div class="skill-icon">⚛️</div>
@@ -522,7 +869,7 @@
           <span class="section-tag">PORTFOLIO REPOSITORIES</span>
           <h2 class="section-title">Security Labs &amp; Engineering Projects</h2>
           <p class="section-desc">
-            Production-grade defense architectures, threat intelligence pipelines, and security automation fetched directly from my GitHub.
+            Production-grade defense architectures, threat intelligence pipelines, and security automation fetched directly from my GitHub. Click "Inspect Architecture" for data flow blueprints.
           </p>
         </div>
 
@@ -563,10 +910,15 @@
             </div>
 
             <div class="project-actions">
-              <a href="https://github.com/AdityaTamakuwala/BankSec-TIP" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                View Repository
-              </a>
+              <div class="action-buttons-group">
+                <a href="https://github.com/AdityaTamakuwala/BankSec-TIP" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                  View Repository
+                </a>
+                <button class="btn btn-sm btn-blueprint open-blueprint-trigger" data-project="banksec">
+                  <span class="bp-icon">📐</span> Inspect Architecture
+                </button>
+              </div>
               <span class="repo-owner-label">AdityaTamakuwala/BankSec-TIP</span>
             </div>
           </article>
@@ -606,10 +958,15 @@
             </div>
 
             <div class="project-actions">
-              <a href="https://github.com/AdityaTamakuwala/cybersecurity-soc-home-lab" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                View Repository
-              </a>
+              <div class="action-buttons-group">
+                <a href="https://github.com/AdityaTamakuwala/cybersecurity-soc-home-lab" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                  View Repository
+                </a>
+                <button class="btn btn-sm btn-blueprint open-blueprint-trigger" data-project="soclab">
+                  <span class="bp-icon">📐</span> Inspect Architecture
+                </button>
+              </div>
               <span class="repo-owner-label">AdityaTamakuwala/cybersecurity-soc-home-lab</span>
             </div>
           </article>
@@ -648,10 +1005,15 @@
             </div>
 
             <div class="project-actions">
-              <a href="https://github.com/AdityaTamakuwala/ecommerce-enterprise-devsecops-pipeline" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                View Repository
-              </a>
+              <div class="action-buttons-group">
+                <a href="https://github.com/AdityaTamakuwala/ecommerce-enterprise-devsecops-pipeline" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                  View Repository
+                </a>
+                <button class="btn btn-sm btn-blueprint open-blueprint-trigger" data-project="devsecops">
+                  <span class="bp-icon">📐</span> Inspect Architecture
+                </button>
+              </div>
               <span class="repo-owner-label">AdityaTamakuwala/ecommerce-enterprise-devsecops-pipeline</span>
             </div>
           </article>
@@ -691,10 +1053,15 @@
             </div>
 
             <div class="project-actions">
-              <a href="https://github.com/AdityaTamakuwala/Smart-Attendance-System" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                View Repository
-              </a>
+              <div class="action-buttons-group">
+                <a href="https://github.com/AdityaTamakuwala/Smart-Attendance-System" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                  View Repository
+                </a>
+                <button class="btn btn-sm btn-blueprint open-blueprint-trigger" data-project="smartattendance">
+                  <span class="bp-icon">📐</span> Inspect Architecture
+                </button>
+              </div>
               <span class="repo-owner-label">AdityaTamakuwala/Smart-Attendance-System</span>
             </div>
           </article>
@@ -733,10 +1100,15 @@
             </div>
 
             <div class="project-actions">
-              <a href="https://github.com/AdityaTamakuwala/RapidCart-Platform" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                View Repository
-              </a>
+              <div class="action-buttons-group">
+                <a href="https://github.com/AdityaTamakuwala/RapidCart-Platform" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                  View Repository
+                </a>
+                <button class="btn btn-sm btn-blueprint open-blueprint-trigger" data-project="rapidcart">
+                  <span class="bp-icon">📐</span> Inspect Architecture
+                </button>
+              </div>
               <span class="repo-owner-label">AdityaTamakuwala/RapidCart-Platform</span>
             </div>
           </article>
@@ -754,7 +1126,6 @@
         </div>
 
         <div class="timeline">
-          <!-- Item 1: Infotact Internship -->
           <div class="timeline-item">
             <div class="timeline-marker"></div>
             <div class="timeline-card glassmorphism">
@@ -780,7 +1151,6 @@
             </div>
           </div>
 
-          <!-- Item 2: Education -->
           <div class="timeline-item">
             <div class="timeline-marker"></div>
             <div class="timeline-card glassmorphism">
@@ -808,12 +1178,12 @@
       </div>
     </section>
 
-    <!-- Interactive SOC Cyber Terminal -->
+    <!-- Interactive SOC Cyber Terminal v2.0 -->
     <section class="section terminal-section" id="terminal">
       <div class="container">
         <div class="section-header text-center">
           <span class="section-tag">INTERACTIVE SHELL</span>
-          <h2 class="section-title">Live SOC Cyber Terminal</h2>
+          <h2 class="section-title">Live SOC Cyber Terminal v2.0</h2>
           <p class="section-desc">
             Type commands or click quick-actions below to interact directly with the SOC environment.
           </p>
@@ -826,16 +1196,19 @@
               <span class="dot dot-yellow"></span>
               <span class="dot dot-green"></span>
             </div>
-            <div class="terminal-title">aditya@soc-analyst: ~ (bash / zsh)</div>
+            <div class="terminal-title">aditya@soc-defense-hq: ~ (bash / zsh)</div>
             <div class="terminal-status"><span class="pulse-dot"></span> SESSION: LIVE</div>
           </div>
 
           <div class="terminal-quick-chips">
             <span class="chip-label">Run Command:</span>
+            <button class="cmd-chip" data-cmd="titansoc">titansoc</button>
             <button class="cmd-chip" data-cmd="whoami">whoami</button>
             <button class="cmd-chip" data-cmd="cat skills">cat skills</button>
             <button class="cmd-chip" data-cmd="fetch projects">fetch projects</button>
+            <button class="cmd-chip" data-cmd="matrix">matrix</button>
             <button class="cmd-chip" data-cmd="ioc-scan 185.220.101.5">ioc-scan</button>
+            <button class="cmd-chip" data-cmd="defcon 1">defcon 1</button>
             <button class="cmd-chip" data-cmd="contact">contact</button>
             <button class="cmd-chip" data-cmd="clear">clear</button>
           </div>
@@ -854,7 +1227,7 @@
 
           <form class="terminal-input-row" id="terminal-form">
             <span class="term-prompt">root@aditya-soc:~$</span>
-            <input type="text" id="terminal-input" class="terminal-input" placeholder="type a command (e.g. whoami, help, projects, contact)..." autocomplete="off" spellcheck="false" />
+            <input type="text" id="terminal-input" class="terminal-input" placeholder="type a command (e.g. whoami, help, defcon 1, ioc-scan)..." autocomplete="off" spellcheck="false" />
             <button type="submit" class="terminal-send-btn">Execute</button>
           </form>
         </div>
