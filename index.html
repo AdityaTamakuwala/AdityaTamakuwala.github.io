@@ -31,9 +31,56 @@
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body class="cyber-theme">
+  <!-- Glowing Cursor Follower Spotlight -->
+  <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
   <!-- Cyber Background Canvas & Grid Glow -->
   <div class="cyber-bg-overlay"></div>
   <canvas id="matrix-canvas" class="matrix-canvas" aria-hidden="true"></canvas>
+
+  <!-- Top Scroll Laser Progress & Sector HUD -->
+  <div class="scroll-progress-container" id="scroll-progress-container" aria-hidden="true">
+    <div class="scroll-progress-bar" id="scroll-progress-bar">
+      <div class="scroll-laser-head"></div>
+    </div>
+    <div class="scroll-sector-hud" id="scroll-sector-hud">
+      <span class="hud-sector-icon">📡</span>
+      <span class="hud-sector-text" id="hud-sector-text">SECTOR 01 // TELEMETRY HQ</span>
+      <span class="hud-sector-pct" id="hud-sector-pct">0%</span>
+    </div>
+  </div>
+
+  <!-- Interactive Cyber Sector Floating Minimap -->
+  <nav class="cyber-sector-nav" id="cyber-sector-nav" aria-label="Sector Fast Navigation">
+    <a href="#hero" class="sector-dot active" data-sector="01" data-label="Telemetry HQ" aria-label="Go to Telemetry HQ">
+      <span class="dot-radar"></span>
+      <span class="dot-label">01. HQ</span>
+    </a>
+    <a href="#about" class="sector-dot" data-sector="02" data-label="Defense Pillars" aria-label="Go to Defense Pillars">
+      <span class="dot-radar"></span>
+      <span class="dot-label">02. Pillars</span>
+    </a>
+    <a href="#skills" class="sector-dot" data-sector="03" data-label="Defense Matrix" aria-label="Go to Defense Matrix">
+      <span class="dot-radar"></span>
+      <span class="dot-label">03. Matrix</span>
+    </a>
+    <a href="#projects" class="sector-dot" data-sector="04" data-label="Operations & Repos" aria-label="Go to Operations & Repos">
+      <span class="dot-radar"></span>
+      <span class="dot-label">04. Ops Repos</span>
+    </a>
+    <a href="#experience" class="sector-dot" data-sector="05" data-label="Track Record" aria-label="Go to Track Record">
+      <span class="dot-radar"></span>
+      <span class="dot-label">05. Experience</span>
+    </a>
+    <a href="#terminal" class="sector-dot" data-sector="06" data-label="SOC Terminal" aria-label="Go to SOC Terminal">
+      <span class="dot-radar"></span>
+      <span class="dot-label">06. Terminal</span>
+    </a>
+    <a href="#contact" class="sector-dot" data-sector="07" data-label="Secure Uplink" aria-label="Go to Secure Uplink">
+      <span class="dot-radar"></span>
+      <span class="dot-label">07. Uplink</span>
+    </a>
+  </nav>
 
   <!-- Notification Toast Container -->
   <div id="toast-container" class="toast-container" aria-live="polite"></div>

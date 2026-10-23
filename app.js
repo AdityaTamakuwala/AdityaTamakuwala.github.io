@@ -1,22 +1,31 @@
 /**
  * ADITYA TAMAKUWALA — CYBERSECURITY & THREAT INTEL PORTFOLIO
- * Interactive Terminal, Canvas Effects, Filtering, and Toast Engine
+ * High-Performance Interactive Cyber Engine:
+ * 1. Live Defense Node Constellation Canvas (Cursor Attraction, Shockwave Sonar, Parallax Scroll)
+ * 2. Interactive Scrolling Engine (Top Laser Progress Bar, Floating Sector HUD & Minimap Rail)
+ * 3. Dynamic Cursor Spotlight (Ambient Radial Mesh Tracker)
+ * 4. 3D Card Parallax Tilt & Specular Glare
+ * 5. Scroll-Triggered Staggered Reveal Engine
+ * 6. Interactive SOC Cyber Terminal & Filter Matrix
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initMatrixCanvas();
+  initLiveCyberBackground();
+  initCursorSpotlight();
+  initInteractiveScrollEngine();
+  initScrollReveal();
+  initInteractive3DTilt();
   initSkillsFilter();
   initTerminal();
   initContactForm();
   initClipboardHandlers();
   initMobileNavigation();
-  initScrollSpy();
 });
 
 /* ==========================================================================
-   1. CYBER BACKGROUND / DIGITAL PARTICLES CANVAS
+   1. LIVE CYBER DEFENSE NODE & SONAR BACKGROUND CANVAS
    ========================================================================== */
-function initMatrixCanvas() {
+function initLiveCyberBackground() {
   const canvas = document.getElementById('matrix-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
@@ -24,50 +33,363 @@ function initMatrixCanvas() {
   let width = (canvas.width = window.innerWidth);
   let height = (canvas.height = window.innerHeight);
 
+  // Mouse & Scroll reactive vectors
+  const mouse = {
+    x: width / 2,
+    y: height / 2,
+    isActive: false,
+    radius: 170
+  };
+
+  let scrollY = window.pageYOffset;
+  let targetScrollY = scrollY;
+  let scrollVelocity = 0;
+
   window.addEventListener('resize', () => {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
+    initNodes();
   });
 
-  // Digital characters (Hex, binary, cyber symbols)
-  const characters = '0123456789ABCDEF!@#$%^&*<>[]{}//';
-  const fontSize = 14;
-  const columns = Math.floor(width / fontSize);
-  const drops = Array(columns).fill(1);
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    mouse.isActive = true;
+  });
 
-  function draw() {
-    ctx.fillStyle = 'rgba(6, 9, 15, 0.08)';
-    ctx.fillRect(0, 0, width, height);
+  window.addEventListener('mouseleave', () => {
+    mouse.isActive = false;
+  });
 
-    ctx.fillStyle = '#00f2fe';
-    ctx.font = `${fontSize}px monospace`;
+  // Sonar Shockwave shockwaves array
+  const shockwaves = [];
+  window.addEventListener('click', (e) => {
+    // Only trigger if click is on ambient canvas or general page background
+    shockwaves.push({
+      x: e.clientX,
+      y: e.clientY,
+      radius: 5,
+      maxRadius: Math.min(width, height) * 0.45,
+      speed: 7,
+      alpha: 0.85
+    });
+  });
 
-    for (let i = 0; i < drops.length; i++) {
-      const text = characters.charAt(Math.floor(Math.random() * characters.length));
-      const x = i * fontSize;
-      const y = drops[i] * fontSize;
+  window.addEventListener('scroll', () => {
+    const newScrollY = window.pageYOffset;
+    scrollVelocity = (newScrollY - scrollY) * 0.25;
+    scrollY = newScrollY;
+  });
 
-      // Color variation (Cyan and Emerald green)
-      if (Math.random() > 0.85) {
-        ctx.fillStyle = '#00ff88';
-      } else {
-        ctx.fillStyle = '#00f2fe';
-      }
+  // Cyber Defense Nodes
+  const nodeCount = Math.floor(Math.min(width, 1600) / 18);
+  const nodes = [];
+  const palette = ['#00f2fe', '#00ff88', '#9d4edd', '#38bdf8'];
 
-      ctx.fillText(text, x, y);
-
-      if (y > height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-      drops[i]++;
+  function initNodes() {
+    nodes.length = 0;
+    for (let i = 0; i < nodeCount; i++) {
+      nodes.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        baseX: Math.random() * width,
+        baseY: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.75,
+        vy: (Math.random() - 0.5) * 0.75,
+        radius: Math.random() * 2.2 + 1.2,
+        color: palette[Math.floor(Math.random() * palette.length)],
+        alpha: Math.random() * 0.6 + 0.3,
+        pulseSpeed: Math.random() * 0.03 + 0.015,
+        pulseVal: Math.random() * Math.PI
+      });
     }
   }
+  initNodes();
 
-  setInterval(draw, 50);
+  // Animation Loop
+  function render() {
+    // Soft trailing clear for ambient cyber trails
+    ctx.fillStyle = 'rgba(6, 9, 15, 0.22)';
+    ctx.fillRect(0, 0, width, height);
+
+    // Smoothly decay scroll velocity
+    targetScrollY += (scrollY - targetScrollY) * 0.1;
+    scrollVelocity *= 0.94;
+
+    // 1. Process Shockwaves
+    for (let s = shockwaves.length - 1; s >= 0; s--) {
+      const sw = shockwaves[s];
+      sw.radius += sw.speed;
+      sw.alpha -= 0.016;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(0, 242, 254, ${Math.max(0, sw.alpha)})`;
+      ctx.lineWidth = 2.5;
+      ctx.shadowColor = '#00f2fe';
+      ctx.shadowBlur = 15;
+      ctx.stroke();
+
+      // Outer ripple
+      ctx.beginPath();
+      ctx.arc(sw.x, sw.y, Math.max(0, sw.radius - 20), 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(0, 255, 136, ${Math.max(0, sw.alpha * 0.6)})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.restore();
+
+      // Shockwave physical push on nodes
+      for (let n of nodes) {
+        const dx = n.x - sw.x;
+        const dy = n.y - sw.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (Math.abs(dist - sw.radius) < 35) {
+          const force = (35 - Math.abs(dist - sw.radius)) * 0.08;
+          n.x += (dx / (dist || 1)) * force * 5;
+          n.y += (dy / (dist || 1)) * force * 5;
+        }
+      }
+
+      if (sw.alpha <= 0 || sw.radius >= sw.maxRadius) {
+        shockwaves.splice(s, 1);
+      }
+    }
+
+    // 2. Update and Draw Nodes
+    const len = nodes.length;
+    for (let i = 0; i < len; i++) {
+      const node = nodes[i];
+
+      // Natural Drift + Scroll Parallax
+      node.x += node.vx;
+      node.y += node.vy - scrollVelocity * 0.25;
+
+      // Wrap around canvas edges
+      if (node.x < -20) node.x = width + 20;
+      if (node.x > width + 20) node.x = -20;
+      if (node.y < -20) node.y = height + 20;
+      if (node.y > height + 20) node.y = -20;
+
+      // Mouse Proximity Attraction & Force Field
+      if (mouse.isActive) {
+        const dx = mouse.x - node.x;
+        const dy = mouse.y - node.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < mouse.radius) {
+          const force = (mouse.radius - dist) / mouse.radius;
+          node.x += (dx / dist) * force * 1.5;
+          node.y += (dy / dist) * force * 1.5;
+
+          // Glowing laser telemetry filament to mouse
+          ctx.beginPath();
+          ctx.moveTo(node.x, node.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(0, 242, 254, ${(1 - dist / mouse.radius) * 0.45})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+
+      // Node Pulse
+      node.pulseVal += node.pulseSpeed;
+      const currentAlpha = node.alpha + Math.sin(node.pulseVal) * 0.25;
+
+      // Draw Node
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+      ctx.fillStyle = node.color;
+      ctx.globalAlpha = Math.max(0.15, Math.min(1, currentAlpha));
+      ctx.shadowColor = node.color;
+      ctx.shadowBlur = 8;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.shadowBlur = 0;
+
+      // Connect nearby nodes with defense network wires
+      for (let j = i + 1; j < len; j++) {
+        const nodeB = nodes[j];
+        const dx = node.x - nodeB.x;
+        const dy = node.y - nodeB.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const connectionMaxDist = 135;
+
+        if (dist < connectionMaxDist) {
+          const wireAlpha = (1 - dist / connectionMaxDist) * 0.28;
+          ctx.beginPath();
+          ctx.moveTo(node.x, node.y);
+          ctx.lineTo(nodeB.x, nodeB.y);
+          ctx.strokeStyle = `rgba(0, 242, 254, ${wireAlpha})`;
+          ctx.lineWidth = wireAlpha * 2;
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(render);
+  }
+
+  requestAnimationFrame(render);
 }
 
 /* ==========================================================================
-   2. SKILLS FILTERING
+   2. DYNAMIC CURSOR SPOTLIGHT TRACKER
+   ========================================================================== */
+function initCursorSpotlight() {
+  const root = document.documentElement;
+  window.addEventListener('mousemove', (e) => {
+    root.style.setProperty('--cursor-x', `${e.clientX}px`);
+    root.style.setProperty('--cursor-y', `${e.clientY}px`);
+  });
+}
+
+/* ==========================================================================
+   3. INTERACTIVE SCROLL PROGRESS, SECTOR HUD & MINIMAP RAIL
+   ========================================================================== */
+function initInteractiveScrollEngine() {
+  const progressBar = document.getElementById('scroll-progress-bar');
+  const sectorHudText = document.getElementById('hud-sector-text');
+  const sectorHudPct = document.getElementById('hud-sector-pct');
+  const sectorDots = document.querySelectorAll('.cyber-sector-nav .sector-dot');
+
+  // Sectors mapping
+  const sectors = [
+    { id: 'hero', code: '01', name: 'TELEMETRY HQ', icon: '📡' },
+    { id: 'about', code: '02', name: 'DEFENSE PILLARS', icon: '🛡️' },
+    { id: 'skills', code: '03', name: 'DEFENSE MATRIX', icon: '📊' },
+    { id: 'projects', code: '04', name: 'OPERATIONS & REPOS', icon: '💻' },
+    { id: 'experience', code: '05', name: 'TRACK RECORD', icon: '⚡' },
+    { id: 'terminal', code: '06', name: 'SOC TERMINAL', icon: '⌨️' },
+    { id: 'contact', code: '07', name: 'SECURE UPLINK', icon: '📬' }
+  ];
+
+  function updateScrollState() {
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPos = window.pageYOffset;
+    const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollPos / docHeight) * 100)) : 0;
+
+    // 1. Update Laser Bar
+    if (progressBar) {
+      progressBar.style.width = `${pct}%`;
+    }
+
+    // 2. Update Percentage Pill
+    if (sectorHudPct) {
+      sectorHudPct.textContent = `${Math.round(pct)}%`;
+    }
+
+    // 3. Detect Active Sector
+    let activeSector = sectors[0];
+    const threshold = window.innerHeight * 0.35;
+
+    for (let i = 0; i < sectors.length; i++) {
+      const el = document.getElementById(sectors[i].id);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= threshold) {
+          activeSector = sectors[i];
+        }
+      }
+    }
+
+    // 4. Update HUD text
+    if (sectorHudText) {
+      sectorHudText.textContent = `SECTOR ${activeSector.code} // ${activeSector.name}`;
+    }
+
+    // 5. Update Minimap Rail Active Dot
+    sectorDots.forEach(dot => {
+      if (dot.getAttribute('data-sector') === activeSector.code) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateScrollState, { passive: true });
+  updateScrollState();
+
+  // Smooth scroll click handler for minimap dots
+  sectorDots.forEach(dot => {
+    dot.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = dot.getAttribute('href');
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+}
+
+/* ==========================================================================
+   4. SCROLL-TRIGGERED STAGGERED REVEAL ANIMATIONS
+   ========================================================================== */
+function initScrollReveal() {
+  const revealTargets = document.querySelectorAll(
+    '.about-card, .skill-card, .project-card, .timeline-item, .contact-card, .terminal-window, .section-header'
+  );
+
+  revealTargets.forEach(el => {
+    el.classList.add('scroll-reveal');
+  });
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '0px 0px -50px 0px',
+      threshold: 0.1
+    });
+
+    revealTargets.forEach(el => observer.observe(el));
+  } else {
+    // Fallback
+    revealTargets.forEach(el => el.classList.add('revealed'));
+  }
+}
+
+/* ==========================================================================
+   5. 3D INTERACTIVE CARD PARALLAX TILT & SPECULAR GLARE
+   ========================================================================== */
+function initInteractive3DTilt() {
+  // Select target cards
+  const tiltCards = document.querySelectorAll(
+    '.cyber-card, .about-card, .skill-card, .project-card, .timeline-card, .terminal-window'
+  );
+
+  tiltCards.forEach(card => {
+    card.setAttribute('data-tilt', 'true');
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -7.5;
+      const rotateY = ((x - centerX) / centerX) * 7.5;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.015, 1.015, 1.015)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    });
+  });
+}
+
+/* ==========================================================================
+   6. SKILLS FILTERING
    ========================================================================== */
 function initSkillsFilter() {
   const filterBtns = document.querySelectorAll('.skills-filter-bar .filter-btn');
@@ -98,7 +420,7 @@ function initSkillsFilter() {
 }
 
 /* ==========================================================================
-   3. INTERACTIVE SOC CYBER TERMINAL
+   7. INTERACTIVE SOC CYBER TERMINAL
    ========================================================================== */
 function initTerminal() {
   const terminalForm = document.getElementById('terminal-form');
@@ -111,7 +433,7 @@ function initTerminal() {
   // Focus trigger from nav / hero
   [navTerminalTrigger, heroTerminalBtn].forEach(btn => {
     if (btn) {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', () => {
         const terminalSection = document.getElementById('terminal');
         if (terminalSection) {
           terminalSection.scrollIntoView({ behavior: 'smooth' });
@@ -262,7 +584,7 @@ Specialties: Wazuh SIEM, Windows Sysmon, ELK Stack, Threat Feeds Aggregation, De
         break;
 
       case 'sudo':
-        resLine.innerHTML = `<span class="text-orange">Permission denied: Incident will be logged in Wazuh SIEM!</span>`;
+        resLine.innerHTML = `<span class="text-orange">Permission denied: Incident logged in Wazuh SIEM!</span>`;
         break;
 
       default:
@@ -276,8 +598,8 @@ Specialties: Wazuh SIEM, Windows Sysmon, ELK Stack, Threat Feeds Aggregation, De
 }
 
 /* ==========================================================================
-   4. CLIPBOARD COPY & TOAST NOTIFICATION ENGINE
-   ========================================================================== */
+   8. CLIPBOARD COPY & TOAST NOTIFICATION ENGINE
+   ========================================================================= */
 function initClipboardHandlers() {
   const copyButtons = document.querySelectorAll('[data-copy], #quick-copy-email');
 
@@ -288,7 +610,7 @@ function initClipboardHandlers() {
 
       navigator.clipboard.writeText(textToCopy).then(() => {
         showToast(`Copied: ${textToCopy} 🚀`);
-      }).catch(err => {
+      }).catch(() => {
         // Fallback
         const textarea = document.createElement('textarea');
         textarea.value = textToCopy;
@@ -321,7 +643,7 @@ function showToast(message) {
 }
 
 /* ==========================================================================
-   5. CONTACT FORM HANDLER
+   9. CONTACT FORM HANDLER
    ========================================================================== */
 function initContactForm() {
   const form = document.getElementById('contact-form');
@@ -347,7 +669,7 @@ function initContactForm() {
 }
 
 /* ==========================================================================
-   6. MOBILE NAVIGATION
+   10. MOBILE NAVIGATION
    ========================================================================== */
 function initMobileNavigation() {
   const toggle = document.getElementById('nav-toggle');
@@ -367,36 +689,6 @@ function initMobileNavigation() {
       });
     });
   }
-}
-
-/* ==========================================================================
-   7. SCROLL SPY FOR ACTIVE NAVIGATION LINK
-   ========================================================================== */
-function initScrollSpy() {
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-menu .nav-link');
-
-  window.addEventListener('scroll', () => {
-    let current = '';
-    const scrollY = window.pageYOffset;
-
-    sections.forEach(section => {
-      const sectionHeight = section.offsetHeight;
-      const sectionTop = section.offsetTop - 120;
-      const sectionId = section.getAttribute('id');
-
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        current = sectionId;
-      }
-    });
-
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${current}`) {
-        link.classList.add('active');
-      }
-    });
-  });
 }
 
 /* Helper function to sanitize user strings */
