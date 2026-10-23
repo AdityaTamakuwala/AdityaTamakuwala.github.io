@@ -26,6 +26,47 @@
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body class="tactical-body">
+  <!-- High-End Creative Developer Preloader (MoncyDev Style) -->
+  <div id="preloader" class="preloader" aria-hidden="true">
+    <div class="preloader-overlay-curtain"></div>
+    <div class="preloader-content">
+      <div class="preloader-brand">
+        <span class="brand-shield">🛡️</span>
+        <span class="brand-title">TITANSOC <span class="highlight-cyan">OS v3.0</span></span>
+      </div>
+      <div class="preloader-spinner">
+        <div class="spinner-ring ring-outer"></div>
+        <div class="spinner-ring ring-middle"></div>
+        <div class="spinner-ring ring-inner"></div>
+        <div class="spinner-core">⚡</div>
+      </div>
+      <div class="preloader-counter" id="preloader-pct">0%</div>
+      <div class="preloader-bar-track">
+        <div class="preloader-bar-fill" id="preloader-bar-fill"></div>
+      </div>
+      <div class="preloader-status" id="preloader-status">INITIALIZING NEURAL DEFENSE MESH...</div>
+      <div class="preloader-candidate">ADITYA TAMAKUWALA &bull; ROLL: 23BCE010 &bull; BENGALURU, IN</div>
+    </div>
+  </div>
+
+  <!-- Fluid Magnetic Custom Cursor (MoncyDev Style) -->
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true">
+    <span class="cursor-tag" id="cursor-tag"></span>
+  </div>
+
+  <!-- Cursor-Following Project Preview Card (MoncyDev Style) -->
+  <div class="project-hover-preview" id="project-hover-preview" aria-hidden="true">
+    <div class="preview-media" id="preview-media">
+      <!-- Dynamic Preview SVG/Diagram injected by JS -->
+    </div>
+    <div class="preview-info">
+      <span class="preview-badge" id="preview-badge">THREAT INTEL PLATFORM</span>
+      <h4 class="preview-title" id="preview-title">BankSec-TIP</h4>
+      <p class="preview-metric" id="preview-metric">ELK Stack 8.13 &bull; MongoDB 7.0 &bull; OSINT</p>
+    </div>
+  </div>
+
   <!-- Glowing Cursor Follower Spotlight -->
   <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
 
@@ -101,6 +142,8 @@
         <span class="telem-metric">DEFENSE NODES: <strong class="text-green">5/5 ARMED</strong></span>
         <span class="telem-divider">|</span>
         <span class="telem-metric">SIEM: <strong class="text-purple">WAZUH 4.x + ELK 8.13</strong></span>
+        <span class="telem-divider">|</span>
+        <span class="telem-chip time-chip"><span class="clock-icon">🕒</span> <strong id="live-ist-time">00:00:00 IST</strong></span>
       </div>
 
       <!-- Controls: DEFCON, Sound FX & Theme -->
@@ -254,9 +297,12 @@
         <!-- Hero Right: Interactive 3D Cyber Threat Globe & Telemetry Deck -->
         <div class="hero-visual">
           <div class="war-room-deck glassmorphism">
-            <!-- War Room Tab Switcher -->
+            <!-- War Room Tab Switcher (MoncyDev 3D + Cyber Threat Deck) -->
             <div class="deck-tabs">
-              <button class="deck-tab active" data-deck-view="globe">
+              <button class="deck-tab active" data-deck-view="sentinel">
+                <span class="tab-dot"></span> 3D Cyber Sentinel
+              </button>
+              <button class="deck-tab" data-deck-view="globe">
                 <span class="tab-dot"></span> 3D Threat Globe
               </button>
               <button class="deck-tab" data-deck-view="holo">
@@ -264,8 +310,27 @@
               </button>
             </div>
 
-            <!-- View 1: Interactive 3D Threat Globe -->
-            <div class="deck-view active" id="deck-view-globe">
+            <!-- View 1: Interactive 3D Cyber Sentinel (Three.js WebGL Engine) -->
+            <div class="deck-view active" id="deck-view-sentinel">
+              <div class="sentinel-container">
+                <canvas id="three-sentinel-canvas" class="three-sentinel-canvas" width="400" height="340"></canvas>
+                <div class="sentinel-hud-overlay">
+                  <div class="sentinel-badge">
+                    <span class="pulse-dot"></span> 3D NEURAL SENTINEL // MOUSE TRACKING
+                  </div>
+                  <div class="sentinel-telemetry">
+                    <span>NODES: <strong class="text-green">1,200</strong></span>
+                    <span class="hud-sep">|</span>
+                    <span>ENGINE: <strong class="text-cyan">THREE.JS WEBGL</strong></span>
+                    <span class="hud-sep">|</span>
+                    <span class="text-orange">DRAG TO ROTATE</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- View 2: Interactive 3D Threat Globe -->
+            <div class="deck-view" id="deck-view-globe">
               <div class="globe-container">
                 <canvas id="threat-globe-canvas" class="threat-globe-canvas" width="400" height="340"></canvas>
                 <div class="globe-hud-overlay">
@@ -875,7 +940,7 @@
 
         <div class="projects-grid">
           <!-- Project 1: BankSec-TIP -->
-          <article class="project-card glassmorphism featured-border">
+          <article class="project-card glassmorphism featured-border" data-preview-key="banksec">
             <div class="project-header">
               <div class="project-badge threat-badge">
                 <span class="badge-dot"></span> THREAT INTEL PLATFORM (TIP)
@@ -924,7 +989,7 @@
           </article>
 
           <!-- Project 2: Cybersecurity SOC Home Lab -->
-          <article class="project-card glassmorphism featured-border">
+          <article class="project-card glassmorphism featured-border" data-preview-key="soclab">
             <div class="project-header">
               <div class="project-badge siem-badge">
                 <span class="badge-dot"></span> BLUE TEAM SOC LAB
@@ -972,7 +1037,7 @@
           </article>
 
           <!-- Project 3: Enterprise DevSecOps Pipeline -->
-          <article class="project-card glassmorphism">
+          <article class="project-card glassmorphism" data-preview-key="devsecops">
             <div class="project-header">
               <div class="project-badge devsecops-badge">
                 <span class="badge-dot"></span> DEVSECOPS CI/CD
@@ -1019,7 +1084,7 @@
           </article>
 
           <!-- Project 4: Smart Attendance System -->
-          <article class="project-card glassmorphism">
+          <article class="project-card glassmorphism" data-preview-key="smartattendance">
             <div class="project-header">
               <div class="project-badge biometrics-badge">
                 <span class="badge-dot"></span> BIOMETRICS &amp; DEFENSE
@@ -1067,7 +1132,7 @@
           </article>
 
           <!-- Project 5: RapidCart -->
-          <article class="project-card glassmorphism">
+          <article class="project-card glassmorphism" data-preview-key="rapidcart">
             <div class="project-header">
               <div class="project-badge appsec-badge">
                 <span class="badge-dot"></span> FULL-STACK &amp; CRYPTOGRAPHY
@@ -1341,8 +1406,9 @@
   <footer class="cyber-footer">
     <div class="container footer-content">
       <div class="footer-left">
-        <span class="footer-brand">🛡️ Aditya Tamakuwala</span>
-        <span class="footer-copy">&copy; 2026. Built with modern Vanilla CSS, Semantic HTML &amp; JS. Hosted on GitHub Pages.</span>
+        <span class="footer-brand">🛡️ Aditya Tamakuwala (23BCE010)</span>
+        <span class="footer-copy">&copy; 2026. Built with Three.js WebGL, Vanilla CSS &amp; Pure Web Audio. Hosted on GitHub Pages.</span>
+        <span class="footer-clock">📍 Bengaluru, India • <strong id="footer-ist-time">00:00:00 IST</strong></span>
       </div>
       <div class="footer-links">
         <a href="https://github.com/AdityaTamakuwala" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -1353,6 +1419,7 @@
     </div>
   </footer>
 
+  <script src="./three.min.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>

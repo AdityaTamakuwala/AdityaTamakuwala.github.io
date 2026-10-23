@@ -27,6 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initClipboardHandlers();
   initMobileNavigation();
   initInteractiveHoverSounds();
+  initCreativePreloader();
+  initCustomMagneticCursor();
+  initProjectHoverPreview();
+  initThreeSentinelCanvas();
+  initLiveISTClock();
 });
 
 /* ==========================================================================
@@ -1721,4 +1726,477 @@ function escapeHtml(str) {
       '"': '&quot;'
     }[tag] || tag)
   );
+}
+
+/* ==========================================================================
+   13. CREATIVE DEVELOPER PRELOADER (MoncyDev Inspired)
+   ========================================================================== */
+function initCreativePreloader() {
+  const preloader = document.getElementById('preloader');
+  const pctEl = document.getElementById('preloader-pct');
+  const fillEl = document.getElementById('preloader-bar-fill');
+  const statusEl = document.getElementById('preloader-status');
+  if (!preloader || !pctEl || !fillEl) return;
+
+  const statuses = [
+    'CONNECTING TO TITANSOC SECURE MESH...',
+    'INITIALIZING THREE.JS 3D SENTINEL ENGINE...',
+    'SYNCHRONIZING TELEMETRY PIPELINES (WAZUH 4.x + ELK)...',
+    'VERIFYING MITRE ATT&CK MATRIX BLUEPRINTS...',
+    'ARMING DEFENSE NODES (5/5)...',
+    'DEFENSE MESH ONLINE // WELCOME'
+  ];
+
+  const startTime = performance.now();
+  const duration = 1400;
+
+  function update() {
+    const elapsed = performance.now() - startTime;
+    const progress = Math.min(1, elapsed / duration);
+    const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+    const current = Math.floor(eased * 100);
+
+    pctEl.textContent = `${current}%`;
+    fillEl.style.width = `${current}%`;
+
+    const statusIdx = Math.min(statuses.length - 1, Math.floor((current / 100) * statuses.length));
+    if (statusEl) statusEl.textContent = statuses[statusIdx];
+
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    } else {
+      pctEl.textContent = '100%';
+      fillEl.style.width = '100%';
+      setTimeout(() => {
+        preloader.classList.add('loaded');
+        playCyberSound('mitigation');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 900);
+      }, 250);
+    }
+  }
+
+  requestAnimationFrame(update);
+}
+
+/* ==========================================================================
+   14. FLUID MAGNETIC CUSTOM CURSOR (MoncyDev Style)
+   ========================================================================== */
+function initCustomMagneticCursor() {
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  const tag = document.getElementById('cursor-tag');
+  if (!dot || !ring) return;
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let ringX = mouseX;
+  let ringY = mouseY;
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.left = `${mouseX}px`;
+    dot.style.top = `${mouseY}px`;
+  });
+
+  function renderCursor() {
+    ringX += (mouseX - ringX) * 0.18;
+    ringY += (mouseY - ringY) * 0.18;
+    ring.style.left = `${ringX}px`;
+    ring.style.top = `${ringY}px`;
+    requestAnimationFrame(renderCursor);
+  }
+  requestAnimationFrame(renderCursor);
+
+  const interactiveTargets = document.querySelectorAll(
+    'a, button, input, textarea, .mitre-tech-card, .project-card, .about-card, .skill-card, .cmd-chip, .scenario-btn, .filter-btn'
+  );
+
+  interactiveTargets.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.classList.add('hovered');
+      if (el.closest('.projects-grid')) {
+        ring.classList.add('show-tag');
+        if (tag) tag.textContent = 'VIEW';
+      } else if (el.closest('.hero-visual')) {
+        ring.classList.add('show-tag');
+        if (tag) tag.textContent = 'DRAG 3D';
+      }
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.classList.remove('hovered', 'show-tag');
+    });
+  });
+
+  const canvasSentinel = document.getElementById('three-sentinel-canvas');
+  if (canvasSentinel && canvasSentinel.parentElement) {
+    canvasSentinel.parentElement.addEventListener('mouseenter', () => {
+      ring.classList.add('hovered', 'show-tag');
+      if (tag) tag.textContent = 'ROTATE';
+    });
+    canvasSentinel.parentElement.addEventListener('mouseleave', () => {
+      ring.classList.remove('hovered', 'show-tag');
+    });
+  }
+}
+
+/* ==========================================================================
+   15. CURSOR-FOLLOWING PROJECT PREVIEW REVEAL (MoncyDev Signature Reveal)
+   ========================================================================== */
+function initProjectHoverPreview() {
+  const preview = document.getElementById('project-hover-preview');
+  const media = document.getElementById('preview-media');
+  const badge = document.getElementById('preview-badge');
+  const title = document.getElementById('preview-title');
+  const metric = document.getElementById('preview-metric');
+  if (!preview || !media) return;
+
+  const previewDB = {
+    banksec: {
+      badge: 'THREAT INTEL PLATFORM',
+      title: 'BankSec-TIP',
+      metric: 'Elasticsearch 8.13 • MongoDB 7.0 • OSINT Aggregation',
+      svg: `
+      <svg viewBox="0 0 300 110" fill="none">
+        <rect x="10" y="20" width="70" height="35" rx="5" fill="#0b162c" stroke="#00f2fe" stroke-width="1.5"/>
+        <text x="45" y="42" fill="#00f2fe" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">OSINT Feeds</text>
+        <path d="M 80 37 L 115 37" stroke="#00f2fe" stroke-width="1.5"/>
+        <rect x="115" y="20" width="70" height="35" rx="5" fill="#0b162c" stroke="#00ff88" stroke-width="1.5"/>
+        <text x="150" y="42" fill="#00ff88" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">MongoDB</text>
+        <path d="M 185 37 L 220 37" stroke="#00ff88" stroke-width="1.5"/>
+        <rect x="220" y="20" width="70" height="35" rx="5" fill="#0b162c" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="255" y="42" fill="#38bdf8" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">ELK 8.13</text>
+        <path d="M 150 55 L 150 85 L 220 85" stroke="#ff3366" stroke-width="1.5" stroke-dasharray="3"/>
+        <rect x="220" y="70" width="70" height="30" rx="4" fill="#1e0a12" stroke="#ff3366" stroke-width="1.2"/>
+        <text x="255" y="88" fill="#ff3366" font-size="8" font-family="monospace" text-anchor="middle">Firewall Drop</text>
+      </svg>`
+    },
+    soclab: {
+      badge: 'BLUE TEAM SOC LAB',
+      title: 'Cybersecurity SOC Home Lab',
+      metric: 'Wazuh 4.x SIEM • Microsoft Sysmon • MITRE ATT&CK',
+      svg: `
+      <svg viewBox="0 0 300 110" fill="none">
+        <rect x="15" y="25" width="110" height="60" rx="6" fill="#081020" stroke="#00f2fe" stroke-width="1.2"/>
+        <text x="70" y="48" fill="#fff" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">Windows Endpoint</text>
+        <text x="70" y="65" fill="#38bdf8" font-size="8" font-family="monospace" text-anchor="middle">Sysmon Event IDs</text>
+        <path d="M 125 55 L 175 55" stroke="#00ff88" stroke-width="2"/>
+        <rect x="175" y="25" width="110" height="60" rx="6" fill="#081020" stroke="#00ff88" stroke-width="1.2"/>
+        <text x="230" y="48" fill="#fff" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">Wazuh SIEM/XDR</text>
+        <text x="230" y="65" fill="#00ff88" font-size="8" font-family="monospace" text-anchor="middle">Active Response</text>
+      </svg>`
+    },
+    devsecops: {
+      badge: 'DEVSECOPS CI/CD',
+      title: 'Enterprise DevSecOps Pipeline',
+      metric: 'Checkov IaC • OWASP ZAP • Docker • GitHub Actions',
+      svg: `
+      <svg viewBox="0 0 300 110" fill="none">
+        <rect x="10" y="35" width="60" height="35" rx="5" fill="#081020" stroke="#00f2fe" stroke-width="1.2"/>
+        <text x="40" y="56" fill="#fff" font-size="8" font-family="monospace" text-anchor="middle">Git PR</text>
+        <path d="M 70 52 L 105 52" stroke="#00f2fe" stroke-width="1.5"/>
+        <rect x="105" y="35" width="80" height="35" rx="5" fill="#081020" stroke="#00ff88" stroke-width="1.2"/>
+        <text x="145" y="56" fill="#00ff88" font-size="8" font-family="monospace" text-anchor="middle">Checkov IaC</text>
+        <path d="M 185 52 L 220 52" stroke="#00ff88" stroke-width="1.5"/>
+        <rect x="220" y="35" width="70" height="35" rx="5" fill="#081020" stroke="#9d4edd" stroke-width="1.2"/>
+        <text x="255" y="56" fill="#c084fc" font-size="8" font-family="monospace" text-anchor="middle">OWASP ZAP</text>
+      </svg>`
+    },
+    smartattendance: {
+      badge: 'BIOMETRICS & DEFENSE',
+      title: 'Smart Attendance System',
+      metric: 'OpenCV Eye-Blink EAR • GPS Geo-Fencing • SHA-256',
+      svg: `
+      <svg viewBox="0 0 300 110" fill="none">
+        <rect x="15" y="30" width="80" height="40" rx="5" fill="#081020" stroke="#00f2fe" stroke-width="1.2"/>
+        <text x="55" y="54" fill="#00f2fe" font-size="8" font-family="monospace" text-anchor="middle">Face Landmarks</text>
+        <path d="M 95 50 L 135 50" stroke="#00ff88" stroke-width="1.5"/>
+        <rect x="135" y="30" width="70" height="40" rx="5" fill="#081020" stroke="#00ff88" stroke-width="1.2"/>
+        <text x="170" y="54" fill="#00ff88" font-size="8" font-family="monospace" text-anchor="middle">EAR Blink</text>
+        <path d="M 205 50 L 240 50" stroke="#00ff88" stroke-width="1.5"/>
+        <rect x="240" y="30" width="50" height="40" rx="5" fill="#081020" stroke="#38bdf8" stroke-width="1.2"/>
+        <text x="265" y="54" fill="#38bdf8" font-size="8" font-family="monospace" text-anchor="middle">GPS/Auth</text>
+      </svg>`
+    },
+    rapidcart: {
+      badge: 'FULL-STACK & CRYPTOGRAPHY',
+      title: 'RapidCart Platform',
+      metric: 'MERN Stack • Razorpay HMAC-SHA256 • AuraMatch AI',
+      svg: `
+      <svg viewBox="0 0 300 110" fill="none">
+        <rect x="15" y="30" width="75" height="40" rx="5" fill="#081020" stroke="#00f2fe" stroke-width="1.2"/>
+        <text x="52" y="54" fill="#00f2fe" font-size="8" font-family="monospace" text-anchor="middle">React 18 Client</text>
+        <path d="M 90 50 L 130 50" stroke="#00f2fe" stroke-width="1.5"/>
+        <rect x="130" y="30" width="75" height="40" rx="5" fill="#081020" stroke="#00ff88" stroke-width="1.2"/>
+        <text x="167" y="54" fill="#00ff88" font-size="8" font-family="monospace" text-anchor="middle">Express / JWT</text>
+        <path d="M 205 50 L 240 50" stroke="#00ff88" stroke-width="1.5"/>
+        <rect x="240" y="30" width="50" height="40" rx="5" fill="#081020" stroke="#9d4edd" stroke-width="1.2"/>
+        <text x="265" y="54" fill="#c084fc" font-size="8" font-family="monospace" text-anchor="middle">HMAC</text>
+      </svg>`
+    }
+  };
+
+  const projectCards = document.querySelectorAll('[data-preview-key]');
+  let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+  let isPreviewActive = false;
+
+  window.addEventListener('mousemove', (e) => {
+    targetX = e.clientX + 180;
+    targetY = e.clientY - 60;
+    if (targetX + 170 > window.innerWidth) targetX = e.clientX - 180;
+    if (targetY - 110 < 0) targetY = e.clientY + 110;
+    if (targetY + 110 > window.innerHeight) targetY = window.innerHeight - 120;
+  });
+
+  function renderPreviewPosition() {
+    if (isPreviewActive) {
+      currentX += (targetX - currentX) * 0.15;
+      currentY += (targetY - currentY) * 0.15;
+      preview.style.left = `${currentX}px`;
+      preview.style.top = `${currentY}px`;
+    }
+    requestAnimationFrame(renderPreviewPosition);
+  }
+  requestAnimationFrame(renderPreviewPosition);
+
+  projectCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      const key = card.getAttribute('data-preview-key');
+      const data = previewDB[key];
+      if (data) {
+        badge.textContent = data.badge;
+        title.textContent = data.title;
+        metric.textContent = data.metric;
+        media.innerHTML = data.svg;
+        preview.classList.add('active');
+        isPreviewActive = true;
+      }
+    });
+
+    card.addEventListener('mouseleave', () => {
+      preview.classList.remove('active');
+      isPreviewActive = false;
+    });
+  });
+}
+
+/* ==========================================================================
+   16. THREE.JS 3D CYBER SENTINEL WEBGL SCENE
+   ========================================================================== */
+function initThreeSentinelCanvas() {
+  const canvas = document.getElementById('three-sentinel-canvas');
+  if (!canvas || typeof THREE === 'undefined') return;
+
+  const container = canvas.parentElement;
+  let width = container.clientWidth || 400;
+  let height = container.clientHeight || 340;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+  camera.position.z = 24;
+
+  const renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+    alpha: true,
+    antialias: true,
+    powerPreference: 'high-performance'
+  });
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  // Lights
+  const ambientLight = new THREE.AmbientLight(0x00f2fe, 0.7);
+  scene.add(ambientLight);
+
+  const pointLight1 = new THREE.PointLight(0x00f2fe, 2.5, 60);
+  pointLight1.position.set(12, 12, 12);
+  scene.add(pointLight1);
+
+  const pointLight2 = new THREE.PointLight(0x00ff88, 2.0, 60);
+  pointLight2.position.set(-12, -12, 12);
+  scene.add(pointLight2);
+
+  const pointLight3 = new THREE.PointLight(0x9d4edd, 1.8, 50);
+  pointLight3.position.set(0, 16, -10);
+  scene.add(pointLight3);
+
+  // Sentinel Group
+  const sentinelGroup = new THREE.Group();
+  scene.add(sentinelGroup);
+
+  // 1. Core Wireframe Icosahedron
+  const coreGeo = new THREE.IcosahedronGeometry(4.8, 1);
+  const coreMat = new THREE.MeshPhongMaterial({
+    color: 0x00f2fe,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.85,
+    shininess: 90
+  });
+  const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+  sentinelGroup.add(coreMesh);
+
+  // 2. Inner Solid Glow Sphere
+  const innerGeo = new THREE.SphereGeometry(2.4, 24, 24);
+  const innerMat = new THREE.MeshBasicMaterial({
+    color: 0x00ff88,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.55
+  });
+  const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+  sentinelGroup.add(innerMesh);
+
+  // 3. Orbital Torus Rings
+  const ring1Geo = new THREE.TorusGeometry(7.2, 0.08, 16, 100);
+  const ring1Mat = new THREE.MeshBasicMaterial({ color: 0x00f2fe, transparent: true, opacity: 0.75 });
+  const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
+  ring1.rotation.x = Math.PI / 3;
+  sentinelGroup.add(ring1);
+
+  const ring2Geo = new THREE.TorusGeometry(8.5, 0.06, 16, 100);
+  const ring2Mat = new THREE.MeshBasicMaterial({ color: 0x9d4edd, transparent: true, opacity: 0.65 });
+  const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
+  ring2.rotation.y = Math.PI / 4;
+  sentinelGroup.add(ring2);
+
+  // 4. Orbital Satellites
+  const satellites = [];
+  const satGeo = new THREE.OctahedronGeometry(0.38, 0);
+  const satMat = new THREE.MeshLambertMaterial({ color: 0x00ff88, emissive: 0x00ff88, emissiveIntensity: 0.5 });
+  for (let i = 0; i < 6; i++) {
+    const sat = new THREE.Mesh(satGeo, satMat);
+    sentinelGroup.add(sat);
+    satellites.push({
+      mesh: sat,
+      orbitRadius: 7.2,
+      speed: 0.015 + i * 0.003,
+      angle: (i / 6) * Math.PI * 2
+    });
+  }
+
+  // 5. Starfield / Particle Constellation
+  const particleCount = 1200;
+  const particleGeo = new THREE.BufferGeometry();
+  const particlePositions = new Float32Array(particleCount * 3);
+  for (let i = 0; i < particleCount * 3; i += 3) {
+    const r = 10 + Math.random() * 22;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    particlePositions[i] = r * Math.sin(phi) * Math.cos(theta);
+    particlePositions[i + 1] = r * Math.sin(phi) * Math.sin(theta);
+    particlePositions[i + 2] = r * Math.cos(phi);
+  }
+  particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+  const particleMat = new THREE.PointsMaterial({
+    color: 0x00f2fe,
+    size: 0.14,
+    transparent: true,
+    opacity: 0.75
+  });
+  const particles = new THREE.Points(particleGeo, particleMat);
+  scene.add(particles);
+
+  // Mouse & Drag Interaction
+  let targetRotX = 0, targetRotY = 0;
+  let curRotX = 0, curRotY = 0;
+  let isDragging = false;
+  let lastX = 0, lastY = 0;
+  let dragVelX = 0, dragVelY = 0;
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) {
+      const rect = canvas.getBoundingClientRect();
+      const nx = ((e.clientX - rect.left) / width) * 2 - 1;
+      const ny = -(((e.clientY - rect.top) / height) * 2 - 1);
+      targetRotY = nx * 0.8;
+      targetRotX = -ny * 0.6;
+    }
+  });
+
+  canvas.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    lastX = e.clientX;
+    lastY = e.clientY;
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - lastX;
+    const dy = e.clientY - lastY;
+    dragVelY = dx * 0.008;
+    dragVelX = dy * 0.008;
+    sentinelGroup.rotation.y += dragVelY;
+    sentinelGroup.rotation.x += dragVelX;
+    lastX = e.clientX;
+    lastY = e.clientY;
+  });
+
+  window.addEventListener('mouseup', () => { isDragging = false; });
+
+  window.addEventListener('resize', () => {
+    width = container.clientWidth || 400;
+    height = container.clientHeight || 340;
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+  });
+
+  // Render Loop
+  function animate() {
+    requestAnimationFrame(animate);
+
+    if (!isDragging) {
+      curRotX += (targetRotX - curRotX) * 0.05;
+      curRotY += (targetRotY - curRotY) * 0.05;
+      sentinelGroup.rotation.x = curRotX + Math.sin(Date.now() * 0.001) * 0.12;
+      sentinelGroup.rotation.y = curRotY + Date.now() * 0.0008;
+    }
+
+    coreMesh.rotation.y += 0.004;
+    innerMesh.rotation.x -= 0.005;
+    ring1.rotation.z += 0.006;
+    ring2.rotation.z -= 0.004;
+    particles.rotation.y += 0.0003;
+
+    // Update satellites
+    satellites.forEach(sat => {
+      sat.angle += sat.speed;
+      sat.mesh.position.x = Math.cos(sat.angle) * sat.orbitRadius;
+      sat.mesh.position.y = Math.sin(sat.angle) * sat.orbitRadius * 0.5;
+      sat.mesh.position.z = Math.sin(sat.angle) * sat.orbitRadius * 0.8;
+      sat.mesh.rotation.x += 0.03;
+      sat.mesh.rotation.y += 0.03;
+    });
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+}
+
+/* ==========================================================================
+   17. LIVE IST CLOCK (BENGALURU, INDIA)
+   ========================================================================== */
+function initLiveISTClock() {
+  const liveClockEl = document.getElementById('live-ist-time');
+  const footerClockEl = document.getElementById('footer-ist-time');
+
+  function updateTime() {
+    const now = new Date();
+    const istString = now.toLocaleTimeString('en-US', {
+      timeZone: 'Asia/Kolkata',
+      hour12: true,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    if (liveClockEl) liveClockEl.textContent = `${istString} IST`;
+    if (footerClockEl) footerClockEl.textContent = `${istString} IST`;
+  }
+
+  updateTime();
+  setInterval(updateTime, 1000);
 }

@@ -1695,3 +1695,353 @@ a:hover { color: var(--text-white); }
   .timeline-marker { left: 1px; width: 16px; height: 16px; }
   .inspector-grid { grid-template-columns: 1fr; }
 }
+
+/* ==========================================================================
+   CREATIVE DEVELOPER PRELOADER (MoncyDev Inspired)
+   ========================================================================== */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: #03060c;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: transform 0.85s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.85s ease;
+}
+
+.preloader.loaded {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+  z-index: 2;
+  padding: 1.5rem;
+}
+
+.preloader-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #fff;
+}
+
+.preloader-spinner {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+
+.spinner-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+
+.spinner-ring.ring-outer {
+  inset: 0;
+  border-top-color: var(--accent-cyan);
+  border-right-color: var(--accent-cyan);
+  animation: preloader-spin 1.8s linear infinite;
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.35);
+}
+
+.spinner-ring.ring-middle {
+  inset: 10px;
+  border-bottom-color: var(--accent-green);
+  border-left-color: var(--accent-green);
+  animation: preloader-spin-rev 1.4s linear infinite;
+}
+
+.spinner-ring.ring-inner {
+  inset: 22px;
+  border-top-color: var(--accent-purple);
+  animation: preloader-spin 2.2s linear infinite;
+}
+
+.spinner-core {
+  font-size: 1.4rem;
+  animation: core-pulse 1s infinite alternate;
+}
+
+@keyframes preloader-spin { to { transform: rotate(360deg); } }
+@keyframes preloader-spin-rev { to { transform: rotate(-360deg); } }
+@keyframes core-pulse {
+  from { transform: scale(0.9); opacity: 0.8; filter: drop-shadow(0 0 5px #00f2fe); }
+  to { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 15px #00ff88); }
+}
+
+.preloader-counter {
+  font-family: var(--font-mono);
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  line-height: 1;
+  text-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
+  min-width: 160px;
+}
+
+.preloader-bar-track {
+  width: 280px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.preloader-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+  box-shadow: 0 0 12px var(--accent-cyan);
+  transition: width 0.15s ease-out;
+}
+
+.preloader-status {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  min-height: 1.2rem;
+}
+
+.preloader-candidate {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+}
+
+/* ==========================================================================
+   FLUID MAGNETIC CUSTOM CURSOR (MoncyDev Style)
+   ========================================================================== */
+.cursor-dot {
+  width: 7px;
+  height: 7px;
+  background-color: var(--accent-cyan);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999999;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease, transform 0.08s ease-out;
+  box-shadow: 0 0 10px var(--accent-cyan);
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(0, 242, 254, 0.6);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999998;
+  transform: translate(-50%, -50%);
+  transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.22s ease,
+              border-color 0.22s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cursor-ring.hovered {
+  width: 58px;
+  height: 58px;
+  background-color: rgba(0, 242, 254, 0.1);
+  border-color: var(--accent-green);
+  box-shadow: 0 0 16px rgba(0, 255, 136, 0.35);
+}
+
+.cursor-tag {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  letter-spacing: 1px;
+  display: none;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.cursor-ring.show-tag .cursor-tag {
+  display: block;
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .cursor-dot, .cursor-ring { display: none !important; }
+}
+
+/* ==========================================================================
+   CURSOR-FOLLOWING PROJECT PREVIEW CARD (MoncyDev Signature Reveal)
+   ========================================================================== */
+.project-hover-preview {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9990;
+  width: 320px;
+  border-radius: 12px;
+  background: rgba(8, 14, 26, 0.96);
+  border: 1px solid var(--border-cyan-bright);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 30px rgba(0, 242, 254, 0.2);
+  backdrop-filter: blur(20px);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.92);
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-hover-preview.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.preview-media {
+  height: 130px;
+  background: rgba(3, 7, 15, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.preview-media svg {
+  width: 100%;
+  height: 100%;
+  max-height: 110px;
+}
+
+.preview-info {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.preview-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+}
+
+.preview-title {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.preview-metric {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* ==========================================================================
+   THREE.JS 3D CYBER SENTINEL SCENE
+   ========================================================================== */
+.sentinel-container {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.three-sentinel-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  cursor: grab;
+}
+
+.three-sentinel-canvas:active {
+  cursor: grabbing;
+}
+
+.sentinel-hud-overlay {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sentinel-badge {
+  background: rgba(6, 12, 24, 0.88);
+  border: 1px solid var(--border-cyan);
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sentinel-telemetry {
+  background: rgba(6, 12, 24, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hud-sep {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.time-chip {
+  background: rgba(0, 242, 254, 0.08);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  color: var(--accent-cyan);
+}
+
+.footer-clock {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent-green);
+}
