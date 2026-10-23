@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aditya Tamakuwala | Cybersecurity Analyst & Threat Intel Specialist</title>
+  <meta name="description" content="Portfolio of Aditya Tamakuwala — Cybersecurity Analyst, SOC Specialist, Threat Intelligence Architect, and DevSecOps Engineer. Explore SIEM implementations, Wazuh SOC labs, and security automation." />
+  <meta name="keywords" content="Aditya Tamakuwala, Cybersecurity Analyst, SOC Analyst, Threat Intelligence, SIEM, Wazuh, ELK Stack, DevSecOps, BankSec-TIP, MITRE ATT&CK, Python, Security Portfolio" />
+  <meta name="author" content="Aditya Tamakuwala" />
+
+  <!-- Open Graph / Social Meta -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Aditya Tamakuwala | Cybersecurity Analyst & Threat Intel Specialist" />
+  <meta property="og:description" content="Defensive Security, Wazuh SIEM, Threat Intelligence Pipelines, and DevSecOps Automation." />
+  <meta property="og:url" content="https://adityatamakuwala.github.io" />
+  <meta property="og:image" content="./avatar.png" />
+
+  <!-- Twitter Meta -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Aditya Tamakuwala | Cybersecurity Analyst & Threat Intel Specialist" />
+  <meta name="twitter:description" content="Defensive Security, Wazuh SIEM, Threat Intelligence Pipelines, and DevSecOps Automation." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Favicon / Shield Icon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>" />
+
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body class="cyber-theme">
+  <!-- Cyber Background Canvas & Grid Glow -->
+  <div class="cyber-bg-overlay"></div>
+  <canvas id="matrix-canvas" class="matrix-canvas" aria-hidden="true"></canvas>
+
+  <!-- Notification Toast Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Header / Navigation -->
+  <header class="cyber-header" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-brand" aria-label="Aditya Tamakuwala Home">
+        <span class="brand-shield">🛡️</span>
+        <div class="brand-text">
+          <span class="brand-name">ADITYA TAMAKUWALA</span>
+          <span class="brand-badge"><span class="pulse-dot"></span> SOC MONITOR: ACTIVE</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="nav-menu" id="nav-menu" aria-label="Main Navigation">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#skills" class="nav-link">Skills & Stack</a>
+        <a href="#projects" class="nav-link">Projects & Labs</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#terminal" class="nav-link nav-terminal-btn" id="nav-terminal-trigger">
+          <span class="cli-icon">&gt;_</span> Terminal
+        </a>
+        <a href="#contact" class="nav-link nav-cta">Get in Touch</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="nav-actions">
+        <a href="https://github.com/AdityaTamakuwala" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="GitHub Profile" aria-label="GitHub Profile">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/aditya-tamakuwala-122442316" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="LinkedIn Profile" aria-label="LinkedIn Profile">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+          </svg>
+        </a>
+        <!-- Mobile Hamburger Button -->
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Live Security Ticker -->
+  <aside class="live-ticker-bar" aria-label="Live Security Intelligence Ticker">
+    <div class="ticker-label">
+      <span class="ticker-pulse"></span> THREAT TELEMETRY
+    </div>
+    <div class="ticker-track">
+      <div class="ticker-content" id="ticker-content">
+        <span class="ticker-item"><strong class="highlight-cyan">[SIEM ACTIVE]</strong> Wazuh XDR manager monitoring endpoint telemetry</span>
+        <span class="ticker-sep">⚡</span>
+        <span class="ticker-item"><strong class="highlight-green">[THREAT INTEL]</strong> BankSec-TIP aggregating AlienVault OTX, AbuseIPDB & VirusTotal</span>
+        <span class="ticker-sep">⚡</span>
+        <span class="ticker-item"><strong class="highlight-purple">[DEVSECOPS]</strong> Automated SAST, DAST & Container Security scanning enabled</span>
+        <span class="ticker-sep">⚡</span>
+        <span class="ticker-item"><strong class="highlight-orange">[LAB READY]</strong> VirtualBox Windows Sysmon Detection & Response lab operational</span>
+        <span class="ticker-sep">⚡</span>
+        <span class="ticker-item"><strong class="highlight-cyan">[OPPORTUNITY]</strong> Open to Cybersecurity Analyst, SOC & Threat Intel roles</span>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-grid">
+        <!-- Hero Left / Content -->
+        <div class="hero-content">
+          <div class="hero-chip">
+            <span class="chip-status"></span>
+            <span>CYBERSECURITY ANALYST &bull; SOC &bull; THREAT INTEL</span>
+          </div>
+          
+          <h1 class="hero-title">
+            Defending Systems with <span class="gradient-text">Telemetry, SIEM & Threat Intelligence</span>
+          </h1>
+
+          <p class="hero-bio">
+            Hi, I'm <strong class="text-white">Aditya Tamakuwala</strong>. I specialize in building Security Operations Center (SOC) home labs, architecting threat intelligence pipelines with the <strong>ELK Stack & Wazuh SIEM</strong>, and engineering automated <strong>DevSecOps</strong> security controls.
+          </p>
+
+          <!-- Core Metas -->
+          <div class="hero-metrics-pill">
+            <div class="metric-item">
+              <span class="metric-num">5+</span>
+              <span class="metric-name">Security & Software Repos</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+              <span class="metric-num">MITRE</span>
+              <span class="metric-name">ATT&CK Mapped Rules</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+              <span class="metric-num">ELK + Wazuh</span>
+              <span class="metric-name">SIEM Visualization Stack</span>
+            </div>
+          </div>
+
+          <!-- Hero CTAs -->
+          <div class="hero-ctas">
+            <a href="#projects" class="btn btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              Explore Security Labs
+            </a>
+            <button class="btn btn-terminal" id="hero-terminal-btn">
+              <span class="cli-icon">&gt;_</span> Launch SOC Terminal
+            </button>
+            <a href="https://www.linkedin.com/in/aditya-tamakuwala-122442316" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+              Connect on LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Right / Holographic Cyber Card -->
+        <div class="hero-visual">
+          <div class="cyber-card-wrapper">
+            <div class="cyber-card-glare"></div>
+            <div class="cyber-card">
+              <!-- Hologram Header -->
+              <div class="cyber-card-header">
+                <div class="status-indicator">
+                  <span class="pulse-ring"></span>
+                  <span class="status-text">DEFENSE LEVEL 1 // OPTIMAL</span>
+                </div>
+                <span class="security-id">ID: 23BCE010</span>
+              </div>
+
+              <!-- Avatar & Radar Circle -->
+              <div class="avatar-container">
+                <div class="radar-sweep"></div>
+                <div class="avatar-ring-outer"></div>
+                <div class="avatar-ring-inner"></div>
+                <img src="./avatar.png" alt="Aditya Tamakuwala Profile Photo" class="hero-avatar" />
+              </div>
+
+              <!-- Identity & Verified Badge -->
+              <div class="cyber-identity">
+                <h2 class="identity-name">Aditya Tamakuwala</h2>
+                <p class="identity-role">Threat Intel &amp; SOC Security Specialist</p>
+                <div class="identity-tags">
+                  <span class="tag">Wazuh SIEM</span>
+                  <span class="tag">Sysmon</span>
+                  <span class="tag">Elasticsearch</span>
+                  <span class="tag">DevSecOps</span>
+                </div>
+              </div>
+
+              <!-- Live HUD Telemetry Widget -->
+              <div class="cyber-hud">
+                <div class="hud-row">
+                  <span class="hud-label">SOC Status</span>
+                  <span class="hud-val text-green">ONLINE / NOMINAL</span>
+                </div>
+                <div class="hud-row">
+                  <span class="hud-label">Threat Feeds</span>
+                  <span class="hud-val text-cyan">AlienVault &bull; AbuseIPDB</span>
+                </div>
+                <div class="hud-row">
+                  <span class="hud-label">Pipeline Health</span>
+                  <span class="hud-val text-purple">100% Automated CI/CD</span>
+                </div>
+                <div class="hud-row">
+                  <span class="hud-label">Location</span>
+                  <span class="hud-val text-slate">Bengaluru / India</span>
+                </div>
+              </div>
+
+              <!-- Quick Action Bar -->
+              <div class="card-footer-action">
+                <button class="btn-copy-email" id="quick-copy-email" data-email="adityatamakuwala72@gmail.com">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span>Copy adityatamakuwala72@gmail.com</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About & Core Security Pillars -->
+    <section class="section about-section" id="about">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">OVERVIEW &amp; PHILOSOPHY</span>
+          <h2 class="section-title">Architecting Proactive Security Operations</h2>
+          <p class="section-desc">
+            Bridging the gap between reactive incident response, threat telemetry ingestion, and automated DevSecOps pipelines.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card glassmorphism">
+            <div class="about-icon-box">
+              <span class="icon">📡</span>
+            </div>
+            <h3>SIEM &amp; Telemetry Engineering</h3>
+            <p>
+              Hands-on experience deploying and operating <strong>Wazuh SIEM/XDR</strong> and <strong>ELK Stack (Elasticsearch, Kibana, Filebeat)</strong>. Ingesting rich Windows Sysmon event logs, configuring index mappings, and creating dashboards for actionable incident triage.
+            </p>
+            <div class="card-footer-tags">
+              <span>Wazuh 4.x</span>
+              <span>Sysmon</span>
+              <span>Elasticsearch 8.x</span>
+              <span>Kibana</span>
+            </div>
+          </div>
+
+          <div class="about-card glassmorphism">
+            <div class="about-icon-box">
+              <span class="icon">🔍</span>
+            </div>
+            <h3>Threat Intelligence &amp; OSINT</h3>
+            <p>
+              Ingesting, normalizing, and scoring Indicators of Compromise (IOCs) from premier feeds including <strong>AlienVault OTX, AbuseIPDB, VirusTotal, and Shodan</strong>. Correlating indicators with MongoDB and enforcing security policies across firewall engines.
+            </p>
+            <div class="card-footer-tags">
+              <span>OSINT Feeds</span>
+              <span>IOC Scoring</span>
+              <span>MITRE ATT&CK</span>
+              <span>MongoDB</span>
+            </div>
+          </div>
+
+          <div class="about-card glassmorphism">
+            <div class="about-icon-box">
+              <span class="icon">🛡️</span>
+            </div>
+            <h3>DevSecOps &amp; AppSec Automation</h3>
+            <p>
+              Embedding security into modern continuous integration pipelines: IaC scanning with <strong>Checkov</strong>, DAST vulnerability scanning with <strong>OWASP ZAP</strong>, container security with Docker &amp; Trivy, and dependency SCA for enterprise applications.
+            </p>
+            <div class="card-footer-tags">
+              <span>OWASP ZAP</span>
+              <span>Checkov / IaC</span>
+              <span>Docker</span>
+              <span>GitHub Actions</span>
+            </div>
+          </div>
+
+          <div class="about-card glassmorphism">
+            <div class="about-icon-box">
+              <span class="icon">💻</span>
+            </div>
+            <h3>Full-Stack &amp; Security Automation</h3>
+            <p>
+              Strong programming foundations in <strong>Python</strong> (PyMongo, elasticsearch-py, Flask, OpenCV) and <strong>JavaScript/TypeScript</strong> (React, Node.js, Express). Building custom security automation scripts, APIs, and cryptographic verification workflows.
+            </p>
+            <div class="card-footer-tags">
+              <span>Python 3.10+</span>
+              <span>Flask</span>
+              <span>MERN Stack</span>
+              <span>OpenCV</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Skills Matrix & MITRE ATT&CK Inspector -->
+    <section class="section skills-section" id="skills">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">COMPETENCIES &amp; TOOLING</span>
+          <h2 class="section-title">Defensive Security Matrix</h2>
+          <p class="section-desc">
+            Explore technical proficiencies across security operations, threat intelligence, tooling, and development stacks.
+          </p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="skills-filter-bar">
+          <button class="filter-btn active" data-filter="all">All Disciplines</button>
+          <button class="filter-btn" data-filter="siem">SIEM &amp; SOC</button>
+          <button class="filter-btn" data-filter="threat-intel">Threat Intel &amp; OSINT</button>
+          <button class="filter-btn" data-filter="devsecops">DevSecOps &amp; AppSec</button>
+          <button class="filter-btn" data-filter="programming">Programming &amp; Systems</button>
+        </div>
+
+        <div class="skills-grid" id="skills-container">
+          <!-- Skill: Wazuh SIEM -->
+          <div class="skill-card glassmorphism" data-category="siem">
+            <div class="skill-header">
+              <div class="skill-icon">📊</div>
+              <div>
+                <h4 class="skill-title">Wazuh SIEM / XDR</h4>
+                <span class="skill-level">Manager &amp; Agent Deployment</span>
+              </div>
+            </div>
+            <p class="skill-desc">Centralized event monitoring, custom XML detection rules, active response, and Sysmon telemetry correlation.</p>
+            <div class="skill-progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+          </div>
+
+          <!-- Skill: Elasticsearch & Kibana -->
+          <div class="skill-card glassmorphism" data-category="siem">
+            <div class="skill-header">
+              <div class="skill-icon">⚡</div>
+              <div>
+                <h4 class="skill-title">ELK Stack &amp; Kibana</h4>
+                <span class="skill-level">Dashboard &amp; Index Mapping</span>
+              </div>
+            </div>
+            <p class="skill-desc">Ingesting threat streams via Filebeat, indexing IOCs in Elasticsearch 8.x, and designing real-time SOC analyst dashboards in Kibana.</p>
+            <div class="skill-progress-bar"><div class="progress-fill" style="width: 88%;"></div></div>
+          </div>
+
+          <!-- Skill: Windows Sysmon & Telemetry -->
+          <div class="skill-card glassmorphism" data-category="siem">
+            <div class="skill-header">
+              <div class="skill-icon">🪟</div>
+              <div>
+                <h4 class="skill-title">Microsoft Sysmon</h4>
+                <span class="skill-level">Endpoint Telemetry Configuration</span>
+              </div>
+            </div>
+            <p class="skill-desc">Process creation (Event ID 1), Network connections (Event ID 3), and file tampering detection in virtualized environments.</p>
+            <div class="skill-progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
+          </div>
+
+          <!-- Skill: Threat Intelligence Feeds -->
+          <div class="skill-card glassmorphism" data-category="threat-intel">
+            <div class="skill-header">
+              <div class="skill-icon">🌐</div>
+              <div>
+                <h4 class="skill-title">OSINT Feeds Aggregation</h4>
+                <span class="skill-level">AlienVault OTX, AbuseIPDB, VirusTotal</span>
+              </div>
+            </div>
+            <p class="skill-desc">Automated ingestion, deduplication, scoring, and enrichment of malicious IP addresses, hashes, and domains.</p>
+            <div class="skill-progress-bar"><div class="progress-fill" style="width: 92%;"></div></div>
+          </div>
+
+          <!-- Skill: MITRE ATT&CK -->
+          <div class="skill-card glassmorphism" data-category="threat-intel">
+            <div class="skill-header">
+              <div class="skill-icon">🎯</div>
+              <div>
+                <h4 class="skill-title">MITRE ATT&amp;CK Framework</h4>
+                <span class="skill-level">Adversary TTP Mapping</span>
+              </div>
+            </div>
+            <p class="skill-desc">Aligning telemetry events and SIEM alert rules with tactical matrices (Initial Access, Execution, Persistence, Defense Evasion).</p>
+            <div class="skill-progress-bar"><div class="progress-fill" style="width: 86%;"></div></div>
+          </div>
+
+          <!-- Skill: OWASP ZAP & DAST -->
+          <div class="skill-card glassmorphism" data-category="devsecops">
+            <div class="skill-header">
+              <div class="skill-icon">🔍</div>
+              <div>
+                <h4 class="skill-title">OWASP ZAP (DAST)</h4>
+                <span class="skill-level">Dynamic Web App Scanning</span>
+              </div>
+            </div>
+            <p class="skill-desc">Automated active/passive vulnerability assessments on containerized web applications (OWASP Juice Shop pipeline).</p>
+            <div class="skill-progress-bar"><div class="progress-fill" style="width: 84%;"></div></div>
+          </div>
+
+          <!-- Skill: IaC Security (Checkov & Tfsec) -->
+          <div class="skill-card glassmorphism" data-category="devsecops">
+            <div class="skill-header">
+              <div class="skill-icon">🏗️</div>
+              <div>
+                <h4 class="skill-title">IaC Scanning (Checkov)</h4>
+                <span class="skill-level">Infrastructure-as-Code Hardening</span>
+              </div>
+            </div>
+            <p class="skill-desc">Scanning Terraform configurations for misconfigurations, open security groups, unencrypted S3 buckets, and policy violations.</p>
+            <div class="skill-progress-bar"><div class="progress-fill" style="width: 82%;"></div></div>
+          </div>
+
+          <!-- Skill: Docker & Container Security -->
+          <div class="skill-card glassmorphism" data-category="devsecops">
+            <div class="skill-header">
+              <div class="skill-icon">🐳</div>
+              <div>
+                <h4 class="skill-title">Docker &amp; Containerization</h4>
+                <span class="skill-level">Compose, Hardening &amp; Orchestration</span>
+              </div>
+            </div>
+            <p class="skill-desc">Multi-container orchestration for ELK stacks, isolation of lab environments, and container vulnerability scanning.</p>
+            <div class="skill-progress-bar"><div class="progress-fill" style="width: 88%;"></div></div>
+          </div>
+
+          <!-- Skill: Python Automation -->
+          <div class="skill-card glassmorphism" data-category="programming">
+            <div class="skill-header">
+              <div class="skill-icon">🐍</div>
+              <div>
+                <h4 class="skill-title">Python 3.10+ Automation</h4>
+                <span class="skill-level">Pipelines, PyMongo, OpenCV, Flask</span>
+              </div>
+            </div>
+            <p class="skill-desc">Developing custom IOC normalization pipelines, SIEM API integrations, SHA-256 secure auth layers, and CV algorithms.</p>
+            <div class="skill-progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+          </div>
+
+          <!-- Skill: Linux & Virtualization -->
+          <div class="skill-card glassmorphism" data-category="programming">
+            <div class="skill-header">
+              <div class="skill-icon">🐧</div>
+              <div>
+                <h4 class="skill-title">Linux / Kali &amp; VirtualBox</h4>
+                <span class="skill-level">Network Isolation &amp; CLI Defense</span>
+              </div>
+            </div>
+            <p class="skill-desc">Configuring isolated internal virtual networks, NAT adapters, bash scripting, log parsing, and system hardening.</p>
+            <div class="skill-progress-bar"><div class="progress-fill" style="width: 92%;"></div></div>
+          </div>
+
+          <!-- Skill: MERN & Cryptographic Security -->
+          <div class="skill-card glassmorphism" data-category="programming">
+            <div class="skill-header">
+              <div class="skill-icon">⚛️</div>
+              <div>
+                <h4 class="skill-title">Full-Stack MERN &amp; AppSec</h4>
+                <span class="skill-level">Node.js, Express, React, JWT &amp; RBAC</span>
+              </div>
+            </div>
+            <p class="skill-desc">Engineering secure REST APIs with cryptographic payment verification (Razorpay SHA256 signatures) and role-based access control.</p>
+            <div class="skill-progress-bar"><div class="progress-fill" style="width: 86%;"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Projects & Security Labs -->
+    <section class="section projects-section" id="projects">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">PORTFOLIO REPOSITORIES</span>
+          <h2 class="section-title">Security Labs &amp; Engineering Projects</h2>
+          <p class="section-desc">
+            Production-grade defense architectures, threat intelligence pipelines, and security automation fetched directly from my GitHub.
+          </p>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Project 1: BankSec-TIP -->
+          <article class="project-card glassmorphism featured-border">
+            <div class="project-header">
+              <div class="project-badge threat-badge">
+                <span class="badge-dot"></span> THREAT INTEL PLATFORM (TIP)
+              </div>
+              <span class="project-context">Infotact Internship Program</span>
+            </div>
+
+            <h3 class="project-title">BankSec-TIP — Finance &amp; Banking Threat Intelligence Platform</h3>
+            
+            <p class="project-summary">
+              An advanced Threat Intelligence Platform designed for financial institutions. Ingests normalized IOCs from multiple OSINT feeds, enforces firewall rules, and streams blocked IPs into an <strong>ELK Stack</strong> (Elasticsearch, Kibana, Filebeat) for real-time SOC analyst dashboards.
+            </p>
+
+            <div class="project-achievements">
+              <h4>Key Implementations &amp; Scope:</h4>
+              <ul>
+                <li><strong>ELK Visualization Architecture:</strong> Built and maintained the ELK Stack &amp; Visualization branch, indexing IOCs and firewall logs into Elasticsearch 8.13.</li>
+                <li><strong>OSINT Normalization:</strong> Ingestion from AlienVault OTX, AbuseIPDB, VirusTotal, and Shodan into MongoDB 7.0.</li>
+                <li><strong>Automated Alerting:</strong> Kibana alerting rules triggering when 5+ critical IPs are indexed in 10 minutes with risk score &ge; 95.</li>
+                <li><strong>Log Shipping:</strong> Configured Filebeat log shippers and PyMongo synchronization pipelines.</li>
+              </ul>
+            </div>
+
+            <div class="project-tech-tags">
+              <span>Python 3.10</span>
+              <span>Elasticsearch 8.13</span>
+              <span>Kibana</span>
+              <span>Filebeat</span>
+              <span>MongoDB</span>
+              <span>Docker Compose</span>
+              <span>OSINT</span>
+            </div>
+
+            <div class="project-actions">
+              <a href="https://github.com/AdityaTamakuwala/BankSec-TIP" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                View Repository
+              </a>
+              <span class="repo-owner-label">AdityaTamakuwala/BankSec-TIP</span>
+            </div>
+          </article>
+
+          <!-- Project 2: Cybersecurity SOC Home Lab -->
+          <article class="project-card glassmorphism featured-border">
+            <div class="project-header">
+              <div class="project-badge siem-badge">
+                <span class="badge-dot"></span> BLUE TEAM SOC LAB
+              </div>
+              <span class="project-context">Hands-on Defensive Security</span>
+            </div>
+
+            <h3 class="project-title">Cybersecurity SOC Home Lab with Wazuh SIEM &amp; Sysmon</h3>
+            
+            <p class="project-summary">
+              A comprehensive blueprint for building, configuring, and operating a personal Security Operations Center (SOC) on VirtualBox. Connects an isolated Windows telemetry endpoint running Microsoft Sysmon to a centralized <strong>Wazuh SIEM/XDR manager</strong>.
+            </p>
+
+            <div class="project-achievements">
+              <h4>Key Implementations &amp; Scope:</h4>
+              <ul>
+                <li><strong>Network Isolation:</strong> Built multi-VM virtualized architecture with dedicated internal network and secure logging conduits.</li>
+                <li><strong>Rich Telemetry Pipeline:</strong> Configured Microsoft Sysmon for deep visibility into process spawning, network sockets, and file integrity.</li>
+                <li><strong>MITRE ATT&amp;CK Mapping:</strong> Validated detection rules against adversary techniques, analyzing alerts and drafting incident reports.</li>
+                <li><strong>Documentation Guide:</strong> Authored complete step-by-step documentation for community reproduction.</li>
+              </ul>
+            </div>
+
+            <div class="project-tech-tags">
+              <span>Wazuh 4.x SIEM</span>
+              <span>Microsoft Sysmon</span>
+              <span>VirtualBox</span>
+              <span>Windows 10/11</span>
+              <span>MITRE ATT&CK</span>
+              <span>Incident Response</span>
+            </div>
+
+            <div class="project-actions">
+              <a href="https://github.com/AdityaTamakuwala/cybersecurity-soc-home-lab" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                View Repository
+              </a>
+              <span class="repo-owner-label">AdityaTamakuwala/cybersecurity-soc-home-lab</span>
+            </div>
+          </article>
+
+          <!-- Project 3: Enterprise DevSecOps Pipeline -->
+          <article class="project-card glassmorphism">
+            <div class="project-header">
+              <div class="project-badge devsecops-badge">
+                <span class="badge-dot"></span> DEVSECOPS CI/CD
+              </div>
+              <span class="project-context">Infotact Cybersecurity Project 3</span>
+            </div>
+
+            <h3 class="project-title">Enterprise E-commerce DevSecOps Pipeline</h3>
+            
+            <p class="project-summary">
+              A 4-week enterprise-grade DevSecOps pipeline constructed around the OWASP Juice Shop platform. Implemented layered security controls across source code, container images, infrastructure as code (IaC), and runtime dynamic behavior.
+            </p>
+
+            <div class="project-achievements">
+              <h4>Lead Scope &amp; Responsibilities:</h4>
+              <ul>
+                <li><strong>Week 3 Lead (IaC Security):</strong> Automated scanning of Terraform templates using Checkov to detect misconfigurations and unhardened security groups.</li>
+                <li><strong>Week 4 Lead (DAST &amp; Pipeline Hardening):</strong> Automated OWASP ZAP dynamic application security testing and threshold blocking within GitHub Actions.</li>
+                <li><strong>Continuous Assurance:</strong> Multi-branch Git workflow ensuring security checks pass before production merge.</li>
+              </ul>
+            </div>
+
+            <div class="project-tech-tags">
+              <span>TypeScript</span>
+              <span>OWASP ZAP</span>
+              <span>Checkov / Tfsec</span>
+              <span>Docker</span>
+              <span>GitHub Actions</span>
+              <span>Terraform</span>
+            </div>
+
+            <div class="project-actions">
+              <a href="https://github.com/AdityaTamakuwala/ecommerce-enterprise-devsecops-pipeline" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                View Repository
+              </a>
+              <span class="repo-owner-label">AdityaTamakuwala/ecommerce-enterprise-devsecops-pipeline</span>
+            </div>
+          </article>
+
+          <!-- Project 4: Smart Attendance System -->
+          <article class="project-card glassmorphism">
+            <div class="project-header">
+              <div class="project-badge biometrics-badge">
+                <span class="badge-dot"></span> BIOMETRICS &amp; DEFENSE
+              </div>
+              <span class="project-context">Python Computer Vision &amp; Security</span>
+            </div>
+
+            <h3 class="project-title">Smart Attendance System with Liveness &amp; Geo-Fencing</h3>
+            
+            <p class="project-summary">
+              A simulated biometric attendance engine combining Facial Recognition, Eye-Blink Liveness detection (anti-spoofing), simulated GPS Geo-Fencing boundaries, and a Flask dashboard protected by SHA-256 cryptographic hashing with intrusion attempt logging.
+            </p>
+
+            <div class="project-achievements">
+              <h4>Key Implementations &amp; Scope:</h4>
+              <ul>
+                <li><strong>Anti-Spoofing:</strong> Blink verification algorithm to counter static photo/video presentation attacks.</li>
+                <li><strong>Boundary Enforcement:</strong> Mock GPS coordinates checking boundary radii before allowing attendance verification.</li>
+                <li><strong>Intrusion Detection:</strong> Dedicated logger monitoring unauthorized access attempts and recording timestamps.</li>
+                <li><strong>Zero Hardware:</strong> 100% offline simulation executable on any workstation.</li>
+              </ul>
+            </div>
+
+            <div class="project-tech-tags">
+              <span>Python</span>
+              <span>OpenCV</span>
+              <span>Flask</span>
+              <span>SHA-256</span>
+              <span>SQLite</span>
+              <span>Intrusion Logging</span>
+            </div>
+
+            <div class="project-actions">
+              <a href="https://github.com/AdityaTamakuwala/Smart-Attendance-System" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                View Repository
+              </a>
+              <span class="repo-owner-label">AdityaTamakuwala/Smart-Attendance-System</span>
+            </div>
+          </article>
+
+          <!-- Project 5: RapidCart -->
+          <article class="project-card glassmorphism">
+            <div class="project-header">
+              <div class="project-badge appsec-badge">
+                <span class="badge-dot"></span> FULL-STACK &amp; CRYPTOGRAPHY
+              </div>
+              <span class="project-context">SPM Capstone Project Lead</span>
+            </div>
+
+            <h3 class="project-title">RapidCart — MERN Platform with Razorpay Security</h3>
+            
+            <p class="project-summary">
+              Enterprise-grade electronics e-commerce platform built with React 18, Node.js, Express, MongoDB, and cryptographic payment verification. Serves 4 core modules: RBAC authentication, catalog search engine, cart, and Razorpay HMAC signature verification.
+            </p>
+
+            <div class="project-achievements">
+              <h4>Role: Project Manager &amp; Backend/DevOps Lead (23BCE010):</h4>
+              <ul>
+                <li><strong>Cryptographic Verification:</strong> Implemented server-side Razorpay webhook and transaction verification using HMAC-SHA256 signatures.</li>
+                <li><strong>Role-Based Access Control:</strong> Engineered JWT token lifecycle and strict privilege separation between admin and customer scopes.</li>
+                <li><strong>AuraMatch AI Style Lab:</strong> Co-architected AI recommendation engine and glassmorphism UI interface.</li>
+              </ul>
+            </div>
+
+            <div class="project-tech-tags">
+              <span>React 18</span>
+              <span>Node.js</span>
+              <span>Express REST API</span>
+              <span>MongoDB</span>
+              <span>HMAC-SHA256</span>
+              <span>Razorpay API</span>
+            </div>
+
+            <div class="project-actions">
+              <a href="https://github.com/AdityaTamakuwala/RapidCart-Platform" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                View Repository
+              </a>
+              <span class="repo-owner-label">AdityaTamakuwala/RapidCart-Platform</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience & Education Timeline -->
+    <section class="section experience-section" id="experience">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">TRACK RECORD &amp; ACADEMICS</span>
+          <h2 class="section-title">Experience &amp; Education</h2>
+          <p class="section-desc">Practical security internships, capstones, and academic achievements.</p>
+        </div>
+
+        <div class="timeline">
+          <!-- Item 1: Infotact Internship -->
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card glassmorphism">
+              <div class="timeline-meta">
+                <span class="timeline-role">Threat Intelligence &amp; SIEM Intern</span>
+                <span class="timeline-date">2026</span>
+              </div>
+              <h3 class="timeline-company">Infotact Technical Internship Program | Finance &amp; Banking Track</h3>
+              <p class="timeline-location">📍 Bengaluru, Karnataka</p>
+              <ul class="timeline-bullets">
+                <li>Selected for competitive Finance &amp; Banking security track focusing on threat indicator ingestion and SIEM engineering.</li>
+                <li>Engineered the ELK Stack &amp; Visualization branch for <strong>BankSec-TIP</strong>; built Elasticsearch index mappings, automated risk scoring, and Kibana SOC dashboards.</li>
+                <li>Spearheaded Week 3 &amp; 4 DevSecOps deliverables: automated IaC security policy enforcement (Checkov) and DAST testing (OWASP ZAP).</li>
+              </ul>
+              <div class="timeline-tags">
+                <span>Threat Intelligence</span>
+                <span>Elasticsearch</span>
+                <span>Kibana</span>
+                <span>Filebeat</span>
+                <span>Checkov</span>
+                <span>OWASP ZAP</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2: Education -->
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card glassmorphism">
+              <div class="timeline-meta">
+                <span class="timeline-role">B.Tech in Computer Science &amp; Engineering</span>
+                <span class="timeline-date">2023 &ndash; Present</span>
+              </div>
+              <h3 class="timeline-company">Undergraduate Degree</h3>
+              <p class="timeline-location">📍 India &bull; Roll: 23BCE010</p>
+              <ul class="timeline-bullets">
+                <li>Specializing in Cybersecurity, Defensive Network Architecture, Operating Systems, and Cryptography.</li>
+                <li>Led multiple engineering teams across Capstone Software Project Management (SPM) and Blue-Team SOC design.</li>
+                <li>Designed open-source guides and detection scenarios aligned with the MITRE ATT&amp;CK framework.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span>Network Security</span>
+                <span>SIEM Operations</span>
+                <span>Cryptography</span>
+                <span>Data Structures</span>
+                <span>Operating Systems</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive SOC Cyber Terminal -->
+    <section class="section terminal-section" id="terminal">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">INTERACTIVE SHELL</span>
+          <h2 class="section-title">Live SOC Cyber Terminal</h2>
+          <p class="section-desc">
+            Type commands or click quick-actions below to interact directly with the SOC environment.
+          </p>
+        </div>
+
+        <div class="terminal-window glassmorphism">
+          <div class="terminal-titlebar">
+            <div class="terminal-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <div class="terminal-title">aditya@soc-analyst: ~ (bash / zsh)</div>
+            <div class="terminal-status"><span class="pulse-dot"></span> SESSION: LIVE</div>
+          </div>
+
+          <div class="terminal-quick-chips">
+            <span class="chip-label">Run Command:</span>
+            <button class="cmd-chip" data-cmd="whoami">whoami</button>
+            <button class="cmd-chip" data-cmd="cat skills">cat skills</button>
+            <button class="cmd-chip" data-cmd="fetch projects">fetch projects</button>
+            <button class="cmd-chip" data-cmd="ioc-scan 185.220.101.5">ioc-scan</button>
+            <button class="cmd-chip" data-cmd="contact">contact</button>
+            <button class="cmd-chip" data-cmd="clear">clear</button>
+          </div>
+
+          <div class="terminal-body" id="terminal-output" tabindex="0" role="region" aria-label="Terminal Output Screen">
+            <div class="term-line">
+              <span class="term-green">root@aditya-soc</span>:<span class="term-cyan">~</span>$ <span class="term-command">soc-init --verbose</span>
+            </div>
+            <div class="term-output">
+              [+] Initializing Threat Telemetry Engine...<br />
+              [+] Ingesting AlienVault OTX &amp; AbuseIPDB Feeds: ACTIVE<br />
+              [+] Wazuh SIEM Agent: RUNNING (0 Critical Alerts)<br />
+              [+] Type <span class="highlight-cyan">'help'</span> for a list of available commands or click the chips above.
+            </div>
+          </div>
+
+          <form class="terminal-input-row" id="terminal-form">
+            <span class="term-prompt">root@aditya-soc:~$</span>
+            <input type="text" id="terminal-input" class="terminal-input" placeholder="type a command (e.g. whoami, help, projects, contact)..." autocomplete="off" spellcheck="false" />
+            <button type="submit" class="terminal-send-btn">Execute</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Connect Section -->
+    <section class="section contact-section" id="contact">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">COMMUNICATION CHANNEL</span>
+          <h2 class="section-title">Get in Touch</h2>
+          <p class="section-desc">
+            Open for Cybersecurity Analyst, SOC, Threat Intelligence, and Security Engineering roles.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Left Column: Contact Cards -->
+          <div class="contact-cards-col">
+            <!-- Email Card -->
+            <div class="contact-card glassmorphism">
+              <div class="contact-icon">📧</div>
+              <div class="contact-details">
+                <span class="contact-label">Direct Email</span>
+                <a href="mailto:adityatamakuwala72@gmail.com" class="contact-value">adityatamakuwala72@gmail.com</a>
+              </div>
+              <button class="btn btn-sm btn-outline copy-trigger" data-copy="adityatamakuwala72@gmail.com" title="Copy Email to Clipboard">
+                Copy
+              </button>
+            </div>
+
+            <!-- LinkedIn Card -->
+            <div class="contact-card glassmorphism">
+              <div class="contact-icon">💼</div>
+              <div class="contact-details">
+                <span class="contact-label">Professional LinkedIn</span>
+                <a href="https://www.linkedin.com/in/aditya-tamakuwala-122442316" target="_blank" rel="noopener noreferrer" class="contact-value">
+                  aditya-tamakuwala-122442316
+                </a>
+              </div>
+              <a href="https://www.linkedin.com/in/aditya-tamakuwala-122442316" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
+                Connect
+              </a>
+            </div>
+
+            <!-- GitHub Card -->
+            <div class="contact-card glassmorphism">
+              <div class="contact-icon">🐙</div>
+              <div class="contact-details">
+                <span class="contact-label">GitHub Repositories</span>
+                <a href="https://github.com/AdityaTamakuwala" target="_blank" rel="noopener noreferrer" class="contact-value">
+                  github.com/AdityaTamakuwala
+                </a>
+              </div>
+              <a href="https://github.com/AdityaTamakuwala" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
+                Follow
+              </a>
+            </div>
+
+            <!-- Location & Availability Badge -->
+            <div class="status-summary-card glassmorphism">
+              <div class="status-row">
+                <span class="status-dot"></span>
+                <span><strong>Status:</strong> Actively exploring entry &amp; junior SOC / Cybersecurity Analyst opportunities</span>
+              </div>
+              <div class="status-row">
+                <span>📍 <strong>Location:</strong> Bengaluru / India (Open to Remote &amp; On-Site)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Message Composer -->
+          <div class="contact-form-col">
+            <form class="contact-form glassmorphism" id="contact-form">
+              <h3 class="form-title">Send a Direct Message</h3>
+              <p class="form-subtitle">Need to discuss a security role or project collaboration? Drop a message below.</p>
+
+              <div class="form-group">
+                <label for="name">Your Name / Organization</label>
+                <input type="text" id="name" name="name" required placeholder="e.g. Alex (Security Recruiter)" class="form-input" />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Your Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="e.g. alex@company.com" class="form-input" />
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required placeholder="e.g. Opportunity: SOC Analyst Role" class="form-input" />
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="4" required placeholder="Hi Aditya, we saw your BankSec-TIP and Wazuh SOC lab..." class="form-input"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">
+                <span>Dispatch Message</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="cyber-footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <span class="footer-brand">🛡️ Aditya Tamakuwala</span>
+        <span class="footer-copy">&copy; 2026. Built with modern Vanilla CSS, Semantic HTML &amp; JS. Hosted on GitHub Pages.</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/AdityaTamakuwala" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/aditya-tamakuwala-122442316" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="mailto:adityatamakuwala72@gmail.com">Email</a>
+        <a href="#hero">Back to Top &uarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
